@@ -151,10 +151,18 @@ LDFLAGS=" "
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/FL,%{_libdir},%{_mandir}/man{1,3}}
 
+if [ "%{_lib}" != "lib" ] ; then
+	ln -sf $RPM_BUILD_ROOT%{_libdir} $RPM_BUILD_ROOT%{_prefix}/lib
+fi
+
 %{__make} install \
 	libdir=$RPM_BUILD_ROOT%{_libdir} \
 	includedir=$RPM_BUILD_ROOT%{_includedir} \
 	bindir=$RPM_BUILD_ROOT%{_bindir}
+
+if [ "%{_lib}" != "lib" ] ; then
+	rm $RPM_BUILD_ROOT%{_prefix}/lib
+fi
 
 install documentation/fltk-config.man $RPM_BUILD_ROOT%{_mandir}/man1/fltk-config.1
 install documentation/fluid.man $RPM_BUILD_ROOT%{_mandir}/man1/fluid.1
