@@ -12,15 +12,13 @@ Source1:	http://www.fltk.org/doc/%name.ps.gz
 Source2:	http://www.fltk.org/doc/%name.pdf
 URL:		http://www.fltk.org/
 Patch0:		
-Buildroot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define	_prefix	/usr/X11R6
 
 %description
 
-
 %description -l pl
-
 
 %package	doc
 Summary:	FLTK Documentation
@@ -31,9 +29,7 @@ Group(pl):	Dokumentacja
 
 %description doc
 
-
 %description -l pl doc
-
 
 %package static
 Summary:	FLTK static library.
@@ -44,9 +40,7 @@ Group(pl):	Biblioteki/Programowanie
 
 %description static
 
-
 %description -l pl static
-
 
 %package devel
 Summary:	FLTK development.
@@ -57,9 +51,7 @@ Group(pl):	Biblioteki/Programowanie
 
 %description devel
 
-
 %description -l pl devel
-
 
 %prep
 %setup -q
@@ -73,7 +65,6 @@ make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 install %{SOURCE1} $RPM_BUILD_DIR/%name-%version/
 install %{SOURCE2} $RPM_BUILD_DIR/%name-%version/
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
