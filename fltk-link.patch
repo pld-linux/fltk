@@ -6,7 +6,7 @@
  	echo $(DSOCOMMAND) $@ ...
 -	$(DSOCOMMAND) $@ $(OBJECTS)
 +	$(DSOCOMMAND) $@ $(OBJECTS) $(LDLIBS)
- 	-$(RM) libfltk.so
+ 	$(RM) libfltk.so
  	$(LN) libfltk.so.1.1 libfltk.so
  
 @@ -236,7 +236,7 @@
@@ -15,7 +15,7 @@
  	echo $(DSOCOMMAND) $@ ...
 -	$(DSOCOMMAND) $@ $(FLOBJECTS) -L. -lfltk
 +	$(DSOCOMMAND) $@ $(FLOBJECTS) -L. -lfltk $(LDLIBS) $(IMAGELIBS)
- 	-$(RM) libfltk_forms.so
+ 	$(RM) libfltk_forms.so
  	$(LN) libfltk_forms.so.1.1 libfltk_forms.so
  
 @@ -272,7 +272,7 @@
@@ -24,7 +24,7 @@
  	echo $(DSOCOMMAND) $@ ...
 -	$(DSOCOMMAND) $@ $(GLOBJECTS) -L. -lfltk
 +	$(DSOCOMMAND) $@ $(GLOBJECTS) -L. -lfltk $(GLDLIBS)
- 	-$(RM) libfltk_gl.so
+ 	$(RM) libfltk_gl.so
  	$(LN) libfltk_gl.so.1.1 libfltk_gl.so
  
 @@ -308,7 +308,7 @@
@@ -33,7 +33,7 @@
  	echo $(DSOCOMMAND) $@ ...
 -	$(DSOCOMMAND) $@ $(IMGOBJECTS) $(IMAGELIBS) -L. -lfltk
 +	$(DSOCOMMAND) $@ $(IMGOBJECTS) $(IMAGELIBS) -L. -lfltk $(LDLIBS) $(IMAGELIBS)
- 	-$(RM) libfltk_images.so
+ 	$(RM) libfltk_images.so
  	$(LN) libfltk_images.so.1.1 libfltk_images.so
  
 --- fltk-1.1.4/configure.in.orig	2003-08-06 00:40:45.000000000 +0200
