@@ -1,7 +1,7 @@
 Summary:	Fast Light Tool Kit 
 Summary(pl):	FLTK
 Name:		fltk
-Version:	1.0.8
+Version:	1.0.9
 Release:	1
 License:	GPL
 Group:		X11/Libraries
@@ -9,7 +9,6 @@ Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%name-%version-source.tar.b
 Source1:	http://www.fltk.org/doc/%name.ps.gz
 Source2:	http://www.fltk.org/doc/%name.pdf
 URL:		http://www.fltk.org/
-#Patch0:	
 BuildRequires:	XFree86-devel >= 3.3.6
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -54,6 +53,9 @@ LDFLAGS="-s"
 CXXFLAGS="$RPM_OPT_FLAGS"
 export LDFLAGS CXXFLAGS
 %configure \
+	--libdir=$RPM_BUILD_ROOT%{_libdir} \
+	--includedir=$RPM_BUILD_ROOT%{_includedir} \
+	--bindir=$RPM_BUILD_ROOT%{_bindir} \
 	    --enable-shared \
 	    --with-x
 
@@ -67,10 +69,8 @@ install %{SOURCE2} $RPM_BUILD_DIR/%name-%version/
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/FL,%{_libdir}}
 
-%{__make} install \
-	libdir=$RPM_BUILD_ROOT%{_libdir} \
-	includedir=$RPM_BUILD_ROOT%{_includedir} \
-	bindir=$RPM_BUILD_ROOT%{_bindir}
+(cd fluid;%{__make} install)
+(cd src;%{__make} install)
 
 cd $RPM_BUILD_ROOT%{_includedir}
 rm -f FL/*.h
