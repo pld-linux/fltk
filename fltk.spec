@@ -1,7 +1,7 @@
 #
 # Conditional build:
-# _without_gl	- without OpenGL libraries
-# _without_xft	- without Xft support
+%bcond_without	gl	# without OpenGL libraries
+%bcond_without	xft	# without Xft support
 #
 Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit
@@ -19,13 +19,13 @@ Patch0:		%{name}-link.patch
 Patch1:		%{name}-acfix.patch
 Patch2:		%{name}-fluid-color.patch
 URL:		http://www.fltk.org/
-%{!?_without_gl:BuildRequires:	OpenGL-devel}
+%{?with_gl:BuildRequires:	OpenGL-devel}
 BuildRequires:	XFree86-devel >= 3.3.6
 BuildRequires:	autoconf
 BuildRequires:	libstdc++-devel
-%{!?_without_xft:BuildRequires:	xft-devel}
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+%{?with_xft:BuildRequires:	xft-devel}
 Obsoletes:	libfltk1.1
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1
 
@@ -141,8 +141,8 @@ LDFLAGS=" "
 %configure \
 	--enable-shared \
 	--with-x \
-	%{?_without_gl:--disable-gl} \
-	%{!?_without_xft:--enable-xft}
+	%{!?with_gl:--disable-gl} \
+	%{?with_xft:--enable-xft}
 
 %{__make} depend
 %{__make}
@@ -201,7 +201,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) %{_libdir}/libfltk_forms.a
 %attr(644,root,root) %{_libdir}/libfltk_images.a
 
-%if 0%{!?_without_gl:1}
+%if %{with gl}
 %files gl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libfltk_gl.so.*.*
