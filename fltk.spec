@@ -1,5 +1,5 @@
-Summary:	Fast Light Tool Kit 
-Summary(pl):	FLTK - "lekki" X11 toolkit 
+Summary:	Fast Light Tool Kit
+Summary(pl):	FLTK - "lekki" X11 toolkit
 Name:		fltk
 Version:	1.0.11
 Release:	4
@@ -29,7 +29,7 @@ Requires:	%{name} = %{version}
 %description devel
 FLTK development files.
 
-%description -l pl devel
+%description devel -l pl
 Narzêdzia programistyczne dla FLTK.
 
 %package static
@@ -41,7 +41,7 @@ Requires:	%{name}-devel = %{version}
 %description static
 FLTK static library.
 
-%description -l pl static
+%description static -l pl
 Biblioteka FLTK linkowana statycznie.
 
 %prep
