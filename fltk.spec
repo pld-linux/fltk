@@ -57,7 +57,7 @@ export LDFLAGS CXXFLAGS
 	    --enable-shared \
 	    --with-x
 
-make depend
+%{__make} depend
 make
 
 install %{SOURCE1} $RPM_BUILD_DIR/%name-%version/
@@ -67,7 +67,7 @@ install %{SOURCE2} $RPM_BUILD_DIR/%name-%version/
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/FL,%{_libdir}}
 
-make install \
+%{__make} install \
 	libdir=$RPM_BUILD_ROOT%{_libdir} \
 	includedir=$RPM_BUILD_ROOT%{_includedir} \
 	bindir=$RPM_BUILD_ROOT%{_bindir}
