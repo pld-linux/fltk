@@ -1,7 +1,7 @@
 Summary:	Fast Light Tool Kit 
 Summary(pl):	FLTK
 Name:		fltk
-Version:	1.0.7
+Version:	1.0.8
 Release:	1
 License:	GPL
 Group:		X11/Window Manager
