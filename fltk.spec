@@ -2,7 +2,7 @@ Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit 
 Name:		fltk
 Version:	1.0.11
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Libraries
 Group(de):	X11/Libraries
@@ -57,7 +57,7 @@ Biblioteka FLTK linkowana statycznie.
 install %{SOURCE1} .
 
 %build
-%configure \
+%configure2_13 \
 	--libdir=$RPM_BUILD_ROOT%{_libdir} \
 	--includedir=$RPM_BUILD_ROOT%{_includedir} \
 	--bindir=$RPM_BUILD_ROOT%{_bindir} \
