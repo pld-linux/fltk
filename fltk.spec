@@ -58,7 +58,7 @@ export LDFLAGS CXXFLAGS
 	    --with-x
 
 %{__make} depend
-make
+%{__make}
 
 install %{SOURCE1} $RPM_BUILD_DIR/%name-%version/
 install %{SOURCE2} $RPM_BUILD_DIR/%name-%version/
