@@ -8,8 +8,8 @@ Group:		X11/Libraries
 Group(de):	X11/Libraries
 Group(es):	X11/Bibliotecas
 Group(pl):	X11/Biblioteki
-Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%name-%version-source.tar.bz2
-Source1:	http://www.fltk.org/doc/%name.ps.gz
+Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.tar.bz2
+Source1:	http://www.fltk.org/doc/%{name}.ps.gz
 URL:		http://www.fltk.org/
 BuildRequires:	XFree86-devel >= 3.3.6
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
