@@ -7,6 +7,7 @@ License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.tar.bz2
 Source1:	http://www.fltk.org/doc/%{name}.ps.gz
+Patch0:		%{name}-fluid-shared.patch
 URL:		http://www.fltk.org/
 BuildRequires:	XFree86-devel >= 3.3.6
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -54,6 +55,7 @@ Biblioteka FLTK linkowana statycznie.
 
 %prep
 %setup -q
+%patch -p1
 
 install %{SOURCE1} .
 
@@ -94,7 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc [CR]*.gz
 %attr(755,root,root) %{_libdir}/*.so.*.*.*
 
 %files devel
