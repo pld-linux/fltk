@@ -6,13 +6,13 @@ Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.0.11
-Release:	8
+Version:	1.1.3
+Release:	1
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.tar.bz2
 Source1:	http://www.fltk.org/doc/%{name}.ps.gz
-Patch0:		%{name}-fluid-shared.patch
+Patch0:		%{name}-link.patch
 URL:		http://www.fltk.org/
 %{!?_without_gl:BuildRequires: OpenGL-devel}
 BuildRequires:	XFree86-devel >= 3.3.6
@@ -20,7 +20,6 @@ BuildRequires:	gcc-c++
 %{!?_without_gl:Requires: OpenGL}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	libfltk1.1
-
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1
 
@@ -85,11 +84,8 @@ Bibliotecas estáticas para o FLTK.
 install %{SOURCE1} .
 
 %build
-CPPFLAGS="-I/usr/X11R6/include"; export CPPFLAGS
-%configure2_13 \
-	--libdir=$RPM_BUILD_ROOT%{_libdir} \
-	--includedir=$RPM_BUILD_ROOT%{_includedir} \
-	--bindir=$RPM_BUILD_ROOT%{_bindir} \
+CPPFLAGS="-I/usr/X11R6/include"
+%configure \
 	--enable-shared \
 	--with-x \
 	%{?_without_gl:--disable-gl}
@@ -99,20 +95,16 @@ CPPFLAGS="-I/usr/X11R6/include"; export CPPFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/FL,%{_libdir},%{_mandir}/man1}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/FL,%{_libdir},%{_mandir}/man{1,3}}
 
-cd fluid
-%{__make} install
-cd ../src
-%{__make} install
-cd ..
+%{__make} install \
+	libdir=$RPM_BUILD_ROOT%{_libdir} \
+	includedir=$RPM_BUILD_ROOT%{_includedir} \
+	bindir=$RPM_BUILD_ROOT%{_bindir}
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.so
-mv -f $RPM_BUILD_ROOT%{_libdir}/libfltk.so.1 \
-	$RPM_BUILD_ROOT%{_libdir}/libfltk.so.%{version}
-ln -sf libfltk.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libfltk.so
-mv -f documentation/fltk.man $RPM_BUILD_ROOT%{_mandir}/man1/fltk.1
-mv -f documentation/fluid.man $RPM_BUILD_ROOT%{_mandir}/man1/fluid.1
+install documentation/fltk-config.man $RPM_BUILD_ROOT%{_mandir}/man1/fltk-config.1
+install documentation/fluid.man $RPM_BUILD_ROOT%{_mandir}/man1/fluid.1
+install documentation/fltk.man $RPM_BUILD_ROOT%{_mandir}/man3/fltk.3
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -123,17 +115,18 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 # note: COPYING contains amendments to LGPL, so don't remove!
-%doc CHANGES COPYING README
-%attr(755,root,root) %{_libdir}/*.so.*.*.*
+%doc CHANGES COPYING CREDITS README
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%doc documentation/* fltk.ps.gz
-%attr(755,root,root) %{_libdir}/libfltk.so
+%doc documentation/*.{html,gif,jpg} fltk.ps.gz
+%attr(755,root,root) %{_bindir}/fltk-config
 %attr(755,root,root) %{_bindir}/fluid
+%attr(755,root,root) %{_libdir}/libfltk.so
 %{_includedir}/FL
-%{_mandir}/man1/*
+%{_mandir}/man[13]/*
 
 %files static
 %defattr(644,root,root,755)
-%attr(644,root,root) %{_libdir}/*.a
+%attr(644,root,root) %{_libdir}/lib*.a
