@@ -1,5 +1,6 @@
 Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit
+Summary(pt_BR):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
 Version:	1.0.11
 Release:	5
@@ -12,6 +13,7 @@ URL:		http://www.fltk.org/
 BuildRequires:	XFree86-devel >= 3.3.6
 BuildRequires:	gcc-c++
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	libfltk1.1
 
 %define		_prefix		/usr/X11R6
 
@@ -25,16 +27,24 @@ developers across the world with a central repository in the US.
 %description -l pl
 Fast Light Tool Kit ("FLTK", wymawiane "faltik"), jest rozprowadzanym
 na licencji LGPL narzêdziem do tworzenia graficznych interfejsów
-u¿ytkownika w C++ dla X (UNIX(r)), OpenGL(r), i Microsoft(r) Windows(r) 
-NT 4.0, 95, oraz 98. Jego pierwotnym autorem jest pan Bill Spitzak; obecnie 
-pakiet jest rozwijany przez niewielk± grupê deweloperów z ró¿nych stron 
-¶wiata (centralne repozytorium znajduje siê w USA).
+u¿ytkownika w C++ dla X (UNIX(r)), OpenGL(r), i Microsoft(r)
+Windows(r) NT 4.0, 95, oraz 98. Jego pierwotnym autorem jest pan Bill
+Spitzak; obecnie pakiet jest rozwijany przez niewielk± grupê
+deweloperów z ró¿nych stron ¶wiata (centralne repozytorium znajduje
+siê w USA).
+
+%description -l pt_BR
+A Fast Light Tool Kit ("FLTK", pronuncia-se "fulltick") é uma
+ferramenta e interface gráfica feita em C++ para desenvolver
+aplicativos para o X, OpenGL e Windows.
 
 %package devel
 Summary:	FLTK development files
 Summary(pl):	Narzêdzia programistyczne dla FLTK
+Summary(pt_BR):	Arquivos de inclusão para o FLTK
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}
+Obsoletes:	libfltk1.1-devel
 
 %description devel
 FLTK development files.
@@ -42,9 +52,13 @@ FLTK development files.
 %description devel -l pl
 Narzêdzia programistyczne dla FLTK.
 
+%description devel -l pt_BR
+Arquivos de inclusão para o FLTK.
+
 %package static
 Summary:	FLTK static library.
 Summary(pl):	Biblioteka FLTK linkowana statycznie
+Summary(pt_BR):	Bibliotecas estáticas para o FLTK
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}
 
@@ -53,6 +67,9 @@ FLTK static library.
 
 %description static -l pl
 Biblioteka FLTK linkowana statycznie.
+
+%description static -l pt_BR
+Bibliotecas estáticas para o FLTK.
 
 %prep
 %setup -q
