@@ -2,7 +2,7 @@ Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit 
 Name:		fltk
 Version:	1.0.11
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Libraries
 Group(de):	X11/Libraries
