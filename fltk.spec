@@ -3,7 +3,7 @@ Summary(pl):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
 Version:	1.0.11
-Release:	5
+Release:	6
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.tar.bz2
@@ -16,6 +16,7 @@ Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	libfltk1.1
 
 %define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
 
 %description
 The Fast Light Tool Kit ("FLTK", pronounced "fulltick") is a LGPL'd
@@ -90,7 +91,7 @@ install %{SOURCE1} .
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/FL,%{_libdir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/FL,%{_libdir},%{_mandir}/man1}
 
 cd fluid
 %{__make} install
@@ -102,9 +103,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.so
 mv -f $RPM_BUILD_ROOT%{_libdir}/libfltk.so.1 \
 	$RPM_BUILD_ROOT%{_libdir}/libfltk.so.%{version}
 ln -sf libfltk.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libfltk.so
-
-# note: COPYING contains amendments to LGPL, so don't remove!
-gzip -9nf CHANGES COPYING README
+mv -f documentation/fltk.man $RPM_BUILD_ROOT%{_mandir}/man1/fltk.1
+mv -f documentation/fluid.man $RPM_BUILD_ROOT%{_mandir}/man1/fluid.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -114,15 +114,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc [CR]*.gz
+# note: COPYING contains amendments to LGPL, so don't remove!
+%doc CHANGES COPYING README
 %attr(755,root,root) %{_libdir}/*.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %doc documentation/* fltk.ps.gz
-%attr(75,root,root) %{_libdir}/libfltk.so
+%attr(755,root,root) %{_libdir}/libfltk.so
 %attr(755,root,root) %{_bindir}/fluid
 %{_includedir}/FL
+%{_mandir}/man1/*
 
 %files static
 %defattr(644,root,root,755)
