@@ -65,7 +65,7 @@ Narzêdzia programistyczne dla FLTK.
 Arquivos de inclusão para o FLTK.
 
 %package static
-Summary:	FLTK static library.
+Summary:	FLTK static library
 Summary(pl):	Biblioteka FLTK linkowana statycznie
 Summary(pt_BR):	Bibliotecas estáticas para o FLTK
 Group:		X11/Development/Libraries
