@@ -2,8 +2,8 @@ Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit
 Name:		fltk
 Version:	1.0.11
-Release:	4
-License:	GPL
+Release:	5
+License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.tar.bz2
 Source1:	http://www.fltk.org/doc/%{name}.ps.gz
@@ -72,22 +72,29 @@ install %{SOURCE1} .
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/FL,%{_libdir}}
 
-(cd fluid;%{__make} install)
-(cd src;%{__make} install)
+cd fluid
+%{__make} install
+cd ../src
+%{__make} install
+cd ..
 
-rm $RPM_BUILD_ROOT%{_libdir}/*.so
-mv $RPM_BUILD_ROOT%{_libdir}/libfltk.so.1 \
+rm -f $RPM_BUILD_ROOT%{_libdir}/*.so
+mv -f $RPM_BUILD_ROOT%{_libdir}/libfltk.so.1 \
 	$RPM_BUILD_ROOT%{_libdir}/libfltk.so.%{version}
 ln -sf libfltk.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libfltk.so
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+# note: COPYING contains amendments to LGPL, so don't remove!
+gzip -9nf CHANGES COPYING README
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
+%doc *.gz
 %attr(755,root,root) %{_libdir}/*.so.*.*.*
 
 %files devel
