@@ -4,20 +4,23 @@ Name:		fltk
 Version:	1.0.8
 Release:	1
 License:	GPL
-Group:		X11/Window Manager
-Group(pl):	X11/Zarz±dcy Okien
+Group:		X11/Libraries
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%name-%version-source.tar.bz2
 Source1:	http://www.fltk.org/doc/%name.ps.gz
 Source2:	http://www.fltk.org/doc/%name.pdf
 URL:		http://www.fltk.org/
-#Patch0:		
+#Patch0:	
 BuildRequires:	XFree86-devel >= 3.3.6
-Buildroot:	/tmp/%{name}-%{version}-root
+Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define	_prefix	/usr/X11R6
+%define		_prefix		/usr/X11R6
 
 %description
-
+The Fast Light Tool Kit ("FLTK", pronounced "fulltick") is a LGPL'd
+C++ graphical user interface toolkit for X (UNIX(r)), OpenGL(r), and
+Microsoft(r) Windows(r) NT 4.0, 95, or 98. It was originally developed
+by Mr. Bill Spitzak and is currently maintained by a small group of
+developers across the world with a central repository in the US.
 
 %description -l pl
 
@@ -47,43 +50,41 @@ Group(pl):	X11/Programowanie/Biblioteki
 %setup -q
 
 %build
-CXXFLAGS="-O2 -mpentium -shared"
-export CXXFLAGS
+LDFLAGS="-s"
+CXXFLAGS="$RPM_OPT_FLAGS"
+export LDFLAGS CXXFLAGS
 %configure \
 	    --enable-shared \
 	    --with-x
 
-make RPM_OPT_FLAGS="$RPM_OPT_FLAGS" depend
-make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+make depend
+make
 
 install %{SOURCE1} $RPM_BUILD_DIR/%name-%version/
 install %{SOURCE2} $RPM_BUILD_DIR/%name-%version/
 
-
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/FL,%{_libdir}}
-make libdir=$RPM_BUILD_ROOT%{_libdir} \
-     includedir=$RPM_BUILD_ROOT%{_includedir} \
-     bindir=$RPM_BUILD_ROOT%{_bindir} \
-     install
+
+make install \
+	libdir=$RPM_BUILD_ROOT%{_libdir} \
+	includedir=$RPM_BUILD_ROOT%{_includedir} \
+	bindir=$RPM_BUILD_ROOT%{_bindir}
 
 cd $RPM_BUILD_ROOT%{_includedir}
-    rm -f FL/*.h
-    for file in FL/*.H; do \
-    newfile="`basename $file H`h";\
-    mv $file FL/$newfile
-    done 
+rm -f FL/*.h
+for file in FL/*.H; do
+	newfile="`basename $file H`h"
+	mv $file FL/$newfile
+done 
 
 rm $RPM_BUILD_ROOT%{_libdir}/*.so
 mv $RPM_BUILD_ROOT%{_libdir}/libfltk.so.1 \
-    $RPM_BUILD_ROOT%{_libdir}/libfltk.so.%{version}
+	$RPM_BUILD_ROOT%{_libdir}/libfltk.so.%{version}
 
-%post devel
-/sbin/ldconfig
-
-%postun devel
-/sbin/ldconfig
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %clean
 rm -rf $RPM_BUILD_ROOT
