@@ -1,3 +1,7 @@
+#
+# Conditional build:
+# _without_gl	- without OpenGL support
+#
 Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR):	Interface gráfica em C++ para X, OpenGL e Windows
@@ -10,13 +14,17 @@ Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.t
 Source1:	http://www.fltk.org/doc/%{name}.ps.gz
 Patch0:		%{name}-fluid-shared.patch
 URL:		http://www.fltk.org/
+%{!?_without_gl:BuildRequires: OpenGL-devel}
 BuildRequires:	XFree86-devel >= 3.3.6
 BuildRequires:	gcc-c++
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+%{!?_without_gl:Requires: OpenGL}
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	libfltk1.1
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
+
+%define		_noautoreqdep	libGL.so.1 libGLU.so.1
 
 %description
 The Fast Light Tool Kit ("FLTK", pronounced "fulltick") is a LGPL'd
@@ -79,12 +87,14 @@ Bibliotecas estáticas para o FLTK.
 install %{SOURCE1} .
 
 %build
+CPPFLAGS="-I/usr/X11R6/include"; export CPPFLAGS
 %configure2_13 \
 	--libdir=$RPM_BUILD_ROOT%{_libdir} \
 	--includedir=$RPM_BUILD_ROOT%{_includedir} \
 	--bindir=$RPM_BUILD_ROOT%{_bindir} \
 	--enable-shared \
-	--with-x
+	--with-x \
+	%{?_without_gl:--disable-gl}
 
 %{__make} depend
 %{__make}

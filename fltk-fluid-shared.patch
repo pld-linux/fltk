@@ -8,3 +8,14 @@
  	$(CXX) -L../lib $(LDFLAGS) -o $(PROGRAM) $(OBJECTS) -lfltk $(LDLIBS)
  
  clean :
+--- fltk-1.0.11/src/Makefile.orig	Mon Jan 22 16:13:40 2001
++++ fltk-1.0.11/src/Makefile	Fri May 24 17:49:24 2002
+@@ -161,7 +161,7 @@
+ 
+ libfltk.so.1 libfltk.sl.1: $(OBJECTS)
+ 	echo $(DSOCOMMAND) $@ ...
+-	$(DSOCOMMAND) $@ $(OBJECTS)
++	$(DSOCOMMAND) $@ $(OBJECTS) $(GLDLIBS)
+ 
+ clean :
+ 	-@ rm -f *.o *.do $(DSONAME) $(LIBRARY) $(CLEAN) core *~ ../include/*~ makedepend cmap
