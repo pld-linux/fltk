@@ -10,7 +10,6 @@ Group(es):	X11/Bibliotecas
 Group(pl):	X11/Biblioteki
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%name-%version-source.tar.bz2
 Source1:	http://www.fltk.org/doc/%name.ps.gz
-Source2:	http://www.fltk.org/doc/%name.pdf
 URL:		http://www.fltk.org/
 BuildRequires:	XFree86-devel >= 3.3.6
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -23,7 +22,6 @@ C++ graphical user interface toolkit for X (UNIX(r)), OpenGL(r), and
 Microsoft(r) Windows(r) NT 4.0, 95, or 98. It was originally developed
 by Mr. Bill Spitzak and is currently maintained by a small group of
 developers across the world with a central repository in the US.
-
 
 %package devel
 Summary:	FLTK development files
@@ -56,7 +54,7 @@ Biblioteka FLTK linkowana statycznie.
 %prep
 %setup -q
 
-install %{SOURCE1} %{SOURCE2} .
+install %{SOURCE1} .
 
 %build
 %configure \
@@ -86,7 +84,7 @@ done
 rm $RPM_BUILD_ROOT%{_libdir}/*.so
 mv $RPM_BUILD_ROOT%{_libdir}/libfltk.so.1 \
 	$RPM_BUILD_ROOT%{_libdir}/libfltk.so.%{version}
-ln -sf libfltk.so.%{version} RPM_BUILD_ROOT%{_libdir}/libfltk.so
+ln -sf libfltk.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libfltk.so
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -100,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc documentation/* fltk.pdf fltk.ps.gz
+%doc documentation/* fltk.ps.gz
 %attr(75,root,root) %{_libdir}/libfltk.so
 %attr(755,root,root) %{_bindir}/fluid
 %{_includedir}/FL
