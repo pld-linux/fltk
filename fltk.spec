@@ -1,6 +1,7 @@
 #
 # Conditional build:
-# _without_gl	- without OpenGL support
+# _without_gl	- without OpenGL libraries
+# _without_xft	- without Xft support
 #
 Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit
@@ -13,11 +14,13 @@ Group:		X11/Libraries
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.tar.bz2
 Source1:	http://www.fltk.org/doc-1.1/%{name}.ps.gz
 Patch0:		%{name}-link.patch
+Patch1:		%{name}-acfix.patch
 URL:		http://www.fltk.org/
 %{!?_without_gl:BuildRequires: OpenGL-devel}
 BuildRequires:	XFree86-devel >= 3.3.6
-BuildRequires:	gcc-c++
-%{!?_without_gl:Requires: OpenGL}
+BuildRequires:	autoconf
+BuildRequires:	libstdc++-devel
+%{!?_without_xft:BuildRequires:	xft-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	libfltk1.1
 
@@ -77,18 +80,64 @@ Biblioteka FLTK linkowana statycznie.
 %description static -l pt_BR
 Bibliotecas estáticas para o FLTK.
 
+%package gl
+Summary:	FLTK GL library
+Summary(pl):	Biblioteka FLTK GL
+Group:		X11/Libraries
+Requires:	%{name} = %{version}
+Requires:	OpenGL
+
+%description gl
+FLTK GL library.
+
+%description gl -l pl
+Biblioteka FLTK GL.
+
+%package gl-devel
+Summary:	Header files for FLTK GL library
+Summary(pl):	Pliki nag³ówkowe biblioteki FLTK GL
+Group:		X11/Development/Libraries
+Requires:	%{name}-devel = %{version}
+Requires:	%{name}-gl = %{version}
+
+%description gl-devel
+Header files for FLTK GL library.
+
+%description gl-devel -l pl
+Pliki nag³ówkowe biblioteki FLTK GL.
+
+%package gl-static
+Summary:	FLTK GL static library
+Summary(pl):	Statyczna biblioteka FLTK GL
+Group:		X11/Development/Libraries
+Requires:	%{name}-gl-devel = %{version}
+Requires:	%{name}-static = %{version}
+
+%description gl-static
+FLTK GL static library.
+
+%description gl-static -l pl
+Statyczna biblioteka FLTK GL.
+
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
 
 install %{SOURCE1} .
 
 %build
 CPPFLAGS="-I/usr/X11R6/include"
+CXXFLAGS="%{rpmcflags} -I/usr/include/freetype2"
+# no "-s" in LDFLAGS, they are propagated to fltk-config
+# (together with -L/usr/X11R6/lib, so cannot be removed)
+LDFLAGS=" "
+%{__autoconf}
 %configure \
 	--enable-shared \
 	--with-x \
-	%{?_without_gl:--disable-gl}
+	%{?_without_gl:--disable-gl} \
+	%{!?_without_xft:--enable-xft}
 
 %{__make} depend
 %{__make}
@@ -116,7 +165,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 # note: COPYING contains amendments to LGPL, so don't remove!
 %doc CHANGES COPYING CREDITS README
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/libfltk.so.*.*
+%attr(755,root,root) %{_libdir}/libfltk_forms.so.*.*
+%attr(755,root,root) %{_libdir}/libfltk_images.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
@@ -124,9 +175,31 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/fltk-config
 %attr(755,root,root) %{_bindir}/fluid
 %attr(755,root,root) %{_libdir}/libfltk.so
+%attr(755,root,root) %{_libdir}/libfltk_forms.so
+%attr(755,root,root) %{_libdir}/libfltk_images.so
 %{_includedir}/FL
+%exclude %{_includedir}/FL/Fl_Gl_Window.*
+%exclude %{_includedir}/FL/gl*
 %{_mandir}/man[13]/*
 
 %files static
 %defattr(644,root,root,755)
-%attr(644,root,root) %{_libdir}/lib*.a
+%attr(644,root,root) %{_libdir}/libfltk.a
+%attr(644,root,root) %{_libdir}/libfltk_forms.a
+%attr(644,root,root) %{_libdir}/libfltk_images.a
+
+%if 0%{!?_without_gl:1}
+%files gl
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libfltk_gl.so.*.*
+
+%files gl-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libfltk_gl.so
+%{_includedir}/FL/Fl_Gl_Window.*
+%{_includedir}/FL/gl*
+
+%files gl-static
+%defattr(644,root,root,755)
+%attr(644,root,root) %{_libdir}/libfltk_gl.a
+%endif

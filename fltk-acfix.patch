@@ -1,0 +1,16 @@
+--- fltk-1.1.3/configure.in.orig	2003-05-16 21:54:53.000000000 +0200
++++ fltk-1.1.3/configure.in	2003-05-16 21:56:13.000000000 +0200
+@@ -379,11 +379,11 @@
+ AC_CHECK_HEADER(libpng/png.h, AC_DEFINE(HAVE_LIBPNG_PNG_H))
+ 
+ if test x$ac_cv_header_png_h = xyes -o x$ac_cv_header_libpng_png_h = xyes; then
+-    AC_CHECK_LIB(png, png_read_rows,
++    AC_CHECK_LIB(png, png_read_rows,[
+ 	AC_DEFINE(HAVE_LIBPNG)
+ 	IMAGELIBS="-lpng $IMAGELIBS"
+ 	LIBS="-lpng $LIBS"
+-	AC_CHECK_FUNCS(png_get_valid png_set_tRNS_to_alpha))
++	AC_CHECK_FUNCS(png_get_valid png_set_tRNS_to_alpha)])
+ fi
+ 
+ dnl Restore original LIBS settings...
