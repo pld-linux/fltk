@@ -1,0 +1,32 @@
+--- fltk-1.1.3/fluid/Fl_Widget_Type.cxx.orig	Tue Nov  5 07:45:40 2002
++++ fltk-1.1.3/fluid/Fl_Widget_Type.cxx	Thu Oct 30 17:15:34 2003
+@@ -1570,9 +1570,9 @@
+ 			       boxname(b->down_box()));
+   }
+   if (o->color() != tplate->color() || subclass())
+-    write_c("%so->color(%d);\n", indent(), o->color());
++    write_c("%so->color((Fl_Color)%d);\n", indent(), o->color());
+   if (o->selection_color() != tplate->selection_color() || subclass())
+-    write_c("%so->selection_color(%d);\n", indent(), o->selection_color());
++    write_c("%so->selection_color((Fl_Color)%d);\n", indent(), o->selection_color());
+   if (image) image->write_code();
+   if (inactive) inactive->write_code(1);
+   if (o->labeltype() != tplate->labeltype() || subclass())
+@@ -1583,7 +1583,7 @@
+   if (o->labelsize() != tplate->labelsize() || subclass())
+     write_c("%so->labelsize(%d);\n", indent(), o->labelsize());
+   if (o->labelcolor() != tplate->labelcolor() || subclass())
+-    write_c("%so->labelcolor(%d);\n", indent(), o->labelcolor());
++    write_c("%so->labelcolor((Fl_Color)%d);\n", indent(), o->labelcolor());
+   if (is_valuator()) {
+     Fl_Valuator* v = (Fl_Valuator*)o;
+     Fl_Valuator* f = (Fl_Valuator*)(tplate);
+@@ -1605,7 +1605,7 @@
+     Fl_Font f; int s; Fl_Color c; textstuff(0,f,s,c);
+     if (f != ff) write_c("%so->textfont(%d);\n", indent(), f);
+     if (s != fs) write_c("%so->textsize(%d);\n", indent(), s);
+-    if (c != fc) write_c("%so->textcolor(%d);\n",indent(), c);
++    if (c != fc) write_c("%so->textcolor((Fl_Color)%d);\n",indent(), c);
+   }}
+   const char* ud = user_data();
+   if (class_name(1) && !parent->is_widget()) ud = "this";
