@@ -8,7 +8,7 @@ Summary(pl):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
 Version:	1.1.3
-Release:	1
+Release:	2
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.tar.bz2
@@ -17,6 +17,7 @@ Source1:	http://www.fltk.org/doc-1.1/%{name}.ps.gz
 # Source1-md5:	eb8f5a4a02d8ca2111ff007daea601b6
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-acfix.patch
+Patch2:		%{name}-fluid-color.patch
 URL:		http://www.fltk.org/
 %{!?_without_gl:BuildRequires:	OpenGL-devel}
 BuildRequires:	XFree86-devel >= 3.3.6
@@ -55,6 +56,7 @@ Summary(pl):	Narzêdzia programistyczne dla FLTK
 Summary(pt_BR):	Arquivos de inclusão para o FLTK
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}
+Requires:	libstdc++-devel
 Obsoletes:	libfltk1.1-devel
 
 %description devel
@@ -125,6 +127,7 @@ Statyczna biblioteka FLTK GL.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 install %{SOURCE1} .
 
