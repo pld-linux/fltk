@@ -20,6 +20,14 @@ Microsoft(r) Windows(r) NT 4.0, 95, or 98. It was originally developed
 by Mr. Bill Spitzak and is currently maintained by a small group of
 developers across the world with a central repository in the US.
 
+%description -l pl
+Fast Light Tool Kit ("FLTK", wymawiane "faltik"), jest rozprowadzanym
+na licencji LGPL narzêdziem do tworzenia graficznych interfejsów
+u¿ytkownika w C++ dla X (UNIX(r)), OpenGL(r), i Microsoft(r) Windows(r) 
+NT 4.0, 95, oraz 98. Jego pierwotnym autorem jest pan Bill Spitzak; obecnie 
+pakiet jest rozwijany przez niewielk± grupê deweloperów z ró¿nych stron 
+¶wiata (centralne repozytorium znajduje siê w USA).
+
 %package devel
 Summary:	FLTK development files
 Summary(pl):	Narzêdzia programistyczne dla FLTK
