@@ -11,7 +11,7 @@ Release:	1
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.tar.bz2
-Source1:	http://www.fltk.org/doc/%{name}.ps.gz
+Source1:	http://www.fltk.org/doc-1.1/%{name}.ps.gz
 Patch0:		%{name}-link.patch
 URL:		http://www.fltk.org/
 %{!?_without_gl:BuildRequires: OpenGL-devel}
