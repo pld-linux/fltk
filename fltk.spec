@@ -10,6 +10,7 @@ Source1:	http://www.fltk.org/doc/%{name}.ps.gz
 Patch0:		%{name}-fluid-shared.patch
 URL:		http://www.fltk.org/
 BuildRequires:	XFree86-devel >= 3.3.6
+BuildRequires:	gcc-c++
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
