@@ -2,7 +2,7 @@ Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit 
 Name:		fltk
 Version:	1.0.11
-Release:	3
+Release:	4
 License:	GPL
 Group:		X11/Libraries
 Group(de):	X11/Libraries
@@ -78,13 +78,6 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.so
 mv $RPM_BUILD_ROOT%{_libdir}/libfltk.so.1 \
 	$RPM_BUILD_ROOT%{_libdir}/libfltk.so.%{version}
 ln -sf libfltk.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libfltk.so
-
-cd $RPM_BUILD_ROOT%{_includedir}
-    rm -f FL/*.h
-    for file in FL/*.H; do \
-    newfile="`basename $file H`h";\
-    ln -s $file FL/$newfile
-    done 
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
