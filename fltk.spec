@@ -5,6 +5,9 @@ Version:	1.0.9
 Release:	1
 License:	GPL
 Group:		X11/Libraries
+Group(de):	X11/Libraries
+Group(es):	X11/Bibliotecas
+Group(pl):	X11/Biblioteki
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%name-%version-source.tar.bz2
 Source1:	http://www.fltk.org/doc/%name.ps.gz
 Source2:	http://www.fltk.org/doc/%name.pdf
@@ -28,6 +31,7 @@ developers across the world with a central repository in the US.
 Summary:	FLTK static library.
 Summary(pl):	Biblioteka FLTK linkowana statycznie
 Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 
 %description static
@@ -39,6 +43,7 @@ Group(pl):	X11/Programowanie/Biblioteki
 Summary:	FLTK development.
 Summary(pl):	Narzêdzia programistyczne dla FLTK.
 Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 
 %description devel
@@ -49,9 +54,6 @@ Group(pl):	X11/Programowanie/Biblioteki
 %setup -q
 
 %build
-LDFLAGS="-s"
-CXXFLAGS="$RPM_OPT_FLAGS"
-export LDFLAGS CXXFLAGS
 %configure \
 	--libdir=$RPM_BUILD_ROOT%{_libdir} \
 	--includedir=$RPM_BUILD_ROOT%{_includedir} \
