@@ -7,17 +7,15 @@ Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.1.3
-Release:	3
+Version:	1.1.4
+Release:	1
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
-Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.tar.bz2
-# Source0-md5:	f32b4acc456d567a6bd554ac03c24055
+Source0:	ftp://ftp.easysw.com/pub/fltk/%{version}/%{name}-%{version}-source.tar.bz2
+# Source0-md5:	06ce1d3def2df35525592746faccbf98
 Source1:	http://www.fltk.org/doc-1.1/%{name}.ps.gz
 # Source1-md5:	eb8f5a4a02d8ca2111ff007daea601b6
 Patch0:		%{name}-link.patch
-Patch1:		%{name}-acfix.patch
-Patch2:		%{name}-fluid-color.patch
 URL:		http://www.fltk.org/
 %{?with_gl:BuildRequires:	OpenGL-devel}
 BuildRequires:	XFree86-devel >= 3.3.6
@@ -55,7 +53,7 @@ Summary:	FLTK development files
 Summary(pl):	Narzêdzia programistyczne dla FLTK
 Summary(pt_BR):	Arquivos de inclusão para o FLTK
 Group:		X11/Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	libstdc++-devel
 Obsoletes:	libfltk1.1-devel
 
@@ -73,7 +71,7 @@ Summary:	FLTK static library
 Summary(pl):	Biblioteka FLTK konsolidowana statycznie
 Summary(pt_BR):	Bibliotecas estáticas para o FLTK
 Group:		X11/Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 FLTK static library.
@@ -88,7 +86,7 @@ Bibliotecas estáticas para o FLTK.
 Summary:	FLTK GL library
 Summary(pl):	Biblioteka FLTK GL
 Group:		X11/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	OpenGL
 
 %description gl
@@ -101,8 +99,8 @@ Biblioteka FLTK GL.
 Summary:	Header files for FLTK GL library
 Summary(pl):	Pliki nag³ówkowe biblioteki FLTK GL
 Group:		X11/Development/Libraries
-Requires:	%{name}-devel = %{version}
-Requires:	%{name}-gl = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-gl = %{version}-%{release}
 
 %description gl-devel
 Header files for FLTK GL library.
@@ -114,8 +112,8 @@ Pliki nag³ówkowe biblioteki FLTK GL.
 Summary:	FLTK GL static library
 Summary(pl):	Statyczna biblioteka FLTK GL
 Group:		X11/Development/Libraries
-Requires:	%{name}-gl-devel = %{version}
-Requires:	%{name}-static = %{version}
+Requires:	%{name}-gl-devel = %{version}-%{release}
+Requires:	%{name}-static = %{version}-%{release}
 
 %description gl-static
 FLTK GL static library.
@@ -126,8 +124,6 @@ Statyczna biblioteka FLTK GL.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 install %{SOURCE1} .
 
@@ -197,9 +193,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%attr(644,root,root) %{_libdir}/libfltk.a
-%attr(644,root,root) %{_libdir}/libfltk_forms.a
-%attr(644,root,root) %{_libdir}/libfltk_images.a
+%{_libdir}/libfltk.a
+%{_libdir}/libfltk_forms.a
+%{_libdir}/libfltk_images.a
 
 %if %{with gl}
 %files gl
@@ -214,5 +210,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files gl-static
 %defattr(644,root,root,755)
-%attr(644,root,root) %{_libdir}/libfltk_gl.a
+%{_libdir}/libfltk_gl.a
 %endif
