@@ -68,7 +68,7 @@ Arquivos de inclusão para o FLTK.
 
 %package static
 Summary:	FLTK static library
-Summary(pl):	Biblioteka FLTK linkowana statycznie
+Summary(pl):	Biblioteka FLTK konsolidowana statycznie
 Summary(pt_BR):	Bibliotecas estáticas para o FLTK
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}
@@ -77,7 +77,7 @@ Requires:	%{name}-devel = %{version}
 FLTK static library.
 
 %description static -l pl
-Biblioteka FLTK linkowana statycznie.
+Biblioteka FLTK konsolidowana statycznie.
 
 %description static -l pt_BR
 Bibliotecas estáticas para o FLTK.
