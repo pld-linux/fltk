@@ -14,6 +14,7 @@ Group:		X11/Libraries
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.tar.bz2
 # Source0-md5: f32b4acc456d567a6bd554ac03c24055
 Source1:	http://www.fltk.org/doc-1.1/%{name}.ps.gz
+# Source1-md5:	eb8f5a4a02d8ca2111ff007daea601b6
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-acfix.patch
 URL:		http://www.fltk.org/
