@@ -11,7 +11,6 @@ Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%name-%version-source.tar.b
 Source1:	http://www.fltk.org/doc/%name.ps.gz
 Source2:	http://www.fltk.org/doc/%name.pdf
 URL:		http://www.fltk.org/
-Patch0:		
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define	_prefix	/usr/X11R6
