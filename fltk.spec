@@ -74,13 +74,6 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/FL,%{_libdir}}
 (cd fluid;%{__make} install)
 (cd src;%{__make} install)
 
-cd $RPM_BUILD_ROOT%{_includedir}
-rm -f FL/*.h
-for file in FL/*.H; do
-	newfile="`basename $file H`h"
-	mv $file FL/$newfile
-done 
-
 rm $RPM_BUILD_ROOT%{_libdir}/*.so
 mv $RPM_BUILD_ROOT%{_libdir}/libfltk.so.1 \
 	$RPM_BUILD_ROOT%{_libdir}/libfltk.so.%{version}
