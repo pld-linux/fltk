@@ -6,8 +6,8 @@ Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.0.11
-Release:	7
+Version:	1.1.0rc2
+Release:	1
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.tar.bz2
@@ -82,7 +82,7 @@ Bibliotecas estáticas para o FLTK.
 
 %prep
 %setup -q
-%patch -p1
+#%patch -p1
 
 install %{SOURCE1} .
 
@@ -103,18 +103,23 @@ CPPFLAGS="-I/usr/X11R6/include"; export CPPFLAGS
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/FL,%{_libdir},%{_mandir}/man1}
 
+install fltk-config $RPM_BUILD_ROOT%{_bindir}/
+
 cd fluid
 %{__make} install
 cd ../src
 %{__make} install
+cd ../FL
+%{__make} install
 cd ..
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.so
-mv -f $RPM_BUILD_ROOT%{_libdir}/libfltk.so.1 \
+mv -f $RPM_BUILD_ROOT%{_libdir}/libfltk.so.1.1 \
 	$RPM_BUILD_ROOT%{_libdir}/libfltk.so.%{version}
 ln -sf libfltk.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libfltk.so
 mv -f documentation/fltk.man $RPM_BUILD_ROOT%{_mandir}/man1/fltk.1
 mv -f documentation/fluid.man $RPM_BUILD_ROOT%{_mandir}/man1/fluid.1
+ln -s %{_includedir}/FL $RPM_BUILD_ROOT/%{_includedir}/Fl
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -134,6 +139,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libfltk.so
 %attr(755,root,root) %{_bindir}/fluid
 %{_includedir}/FL
+%{_includedir}/Fl
 %{_mandir}/man1/*
 
 %files static
