@@ -12,6 +12,7 @@ Release:	1
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
 Source0:	ftp://ftp.easysw.com/pub/%{name}/%{version}/%{name}-%{version}-source.tar.bz2
+# Source0-md5: f32b4acc456d567a6bd554ac03c24055
 Source1:	http://www.fltk.org/doc-1.1/%{name}.ps.gz
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-acfix.patch
