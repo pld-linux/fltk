@@ -1,0 +1,11 @@
+--- fltk-1.1.6/test/keyboard.cxx.orig	2004-04-11 06:39:01.000000000 +0200
++++ fltk-1.1.6/test/keyboard.cxx	2005-01-12 10:26:12.618959896 +0100
+@@ -60,7 +60,7 @@
+   return 0;
+ }
+ 
+-struct {int n; const char* text;} table[] = {
++struct {int n; const char* text;} static table[] = {
+   {FL_Escape, "FL_Escape"},
+   {FL_BackSpace, "FL_BackSpace"},
+   {FL_Tab, "FL_Tab"},
