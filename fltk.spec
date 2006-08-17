@@ -21,6 +21,7 @@ URL:		http://www.fltk.org/
 %{?with_gl:BuildRequires:	OpenGL-GLU-devel}
 BuildRequires:	autoconf
 BuildRequires:	libstdc++-devel
+BuildRequires:	rpmbuild(macros) >= 1.315
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
