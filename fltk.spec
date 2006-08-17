@@ -19,10 +19,10 @@ Patch0:		%{name}-link.patch
 Patch1:		%{name}-cxx.patch
 URL:		http://www.fltk.org/
 %{?with_gl:BuildRequires:	OpenGL-GLU-devel}
-BuildRequires:	xorg-lib-libX11-devel
-BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	autoconf
 BuildRequires:	libstdc++-devel
+BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXext-devel
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
 BuildRequires:	xorg-util-makedepend
 Obsoletes:	libfltk1.1
