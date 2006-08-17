@@ -31,8 +31,8 @@
  
  libfltk_images.so.1.1: $(IMGOBJECTS) libfltk.so.1.1
  	echo $(DSOCOMMAND) $@ ...
--	$(DSOCOMMAND) $@ $(IMGOBJECTS) $(IMAGELIBS) -L. -lfltk
-+	$(DSOCOMMAND) $@ $(IMGOBJECTS) $(IMAGELIBS) -L. -lfltk $(LDLIBS) $(IMAGELIBS)
+-	$(DSOCOMMAND) $@ $(IMGOBJECTS) -L. $(IMAGELIBS) -lfltk
++	$(DSOCOMMAND) $@ $(IMGOBJECTS) -L. $(IMAGELIBS) -lfltk $(LDLIBS) $(IMAGELIBS)
  	$(RM) libfltk_images.so
  	$(LN) libfltk_images.so.1.1 libfltk_images.so
  
@@ -47,27 +47,3 @@
  	    if test "x$libdir" != "x/usr/lib"; then
  		    DSOLINK="-Wl,-rpath,$libdir"
              fi
-@@ -653,22 +653,7 @@
-     # Previous versions of GCC do not have the reliance on the stdc++
-     # or g++ libraries, so the extra supc++ library is not needed.
- 
--    AC_MSG_CHECKING(if libsupc++ is required)
--
--    SUPC="`$CXX -print-file-name=libsupc++.a 2>/dev/null`"
--    case "$SUPC" in
--    	libsupc++.a*)
--	    # Library not found, so this is and older GCC...
--	    AC_MSG_RESULT(no)
--	    ;;
--	*)
--            # This is gcc 3.x, and it knows of libsupc++, so we need it
--            LIBS="$LIBS -lsupc++"
--            AC_MSG_RESULT(yes)
--	    ;;
--    esac
--
--    CXX="$CC"
-+    # PLD: we link all C++ programs against the same version of shared libstdc++.
- 
-     # Show all standard warnings + unused variables when compiling...
-     OPTIM="-Wall -Wunused $OPTIM"
