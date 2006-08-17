@@ -1,25 +1,26 @@
 #
 # Conditional build:
 %bcond_without	gl	# without OpenGL libraries
-%bcond_without	xft	# without Xft support
+%bcond_with	xft	# with Xft support
 #
 Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.1.6
-Release:	2
+Version:	1.1.7
+Release:	1
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
-Source0:	http://dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}-source.tar.bz2
-# Source0-md5:	95d340977d13edea12e98d787a668b32
-Source1:	http://www.fltk.org/doc-1.1/%{name}.ps.gz
-# Source1-md5:	2a77aaee928670ce224c676d3c2b66f8
+Source0:	http://ftp.easysw.com/pub/fltk/1.1.7/%{name}-%{version}-source.tar.bz2
+# Source0-md5:	2e29319119adc9d63b2f26b72cae0a88
+Source1:	http://www.fltk.org/doc-1.1/%{name}.pdf
+# Source1-md5:	d3a073741c94d532ec7af9d96c138ea3
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-cxx.patch
 URL:		http://www.fltk.org/
 %{?with_gl:BuildRequires:	OpenGL-devel}
-BuildRequires:	XFree86-devel >= 3.3.6
+BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	autoconf
 BuildRequires:	libstdc++-devel
 %{?with_xft:BuildRequires:	xft-devel}
@@ -124,8 +125,8 @@ Statyczna biblioteka FLTK GL.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+#%patch0 -p1
+#%patch1 -p1
 
 install %{SOURCE1} .
 
@@ -182,7 +183,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc documentation/*.{html,gif,jpg} fltk.ps.gz
+%doc documentation/*.{html,gif,jpg} fltk.pdf
 %attr(755,root,root) %{_bindir}/fltk-config
 %attr(755,root,root) %{_bindir}/fluid
 %attr(755,root,root) %{_libdir}/libfltk.so
