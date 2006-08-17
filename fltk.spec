@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	gl	# without OpenGL libraries
-%bcond_with	xft	# with Xft support
+%bcond_without	xft	# without Xft support
 #
 Summary:	Fast Light Tool Kit
 Summary(pl):	FLTK - "lekki" X11 toolkit
@@ -18,16 +18,20 @@ Source1:	http://www.fltk.org/doc-1.1/%{name}.pdf
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-cxx.patch
 URL:		http://www.fltk.org/
-%{?with_gl:BuildRequires:	OpenGL-devel}
+%{?with_gl:BuildRequires:	OpenGL-GLU-devel}
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	autoconf
 BuildRequires:	libstdc++-devel
-%{?with_xft:BuildRequires:	xft-devel}
+%{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
+BuildRequires:	xorg-util-makedepend
 Obsoletes:	libfltk1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1
+
+# don't propagate strip-flags to fltk-config.
+%define		filterout_ld	(-Wl,)?-[sS] (-Wl,)?--strip.*
 
 %description
 The Fast Light Tool Kit ("FLTK", pronounced "fulltick") is a LGPL'd
@@ -125,17 +129,12 @@ Statyczna biblioteka FLTK GL.
 
 %prep
 %setup -q
-#%patch0 -p1
-#%patch1 -p1
+%patch0 -p1
+%patch1 -p1
 
 install %{SOURCE1} .
 
 %build
-CPPFLAGS="-I/usr/X11R6/include"
-CXXFLAGS="%{rpmcflags} -I/usr/include/freetype2"
-# no "-s" in LDFLAGS, they are propagated to fltk-config
-# (together with -L/usr/X11R6/lib, so cannot be removed)
-LDFLAGS=" "
 %{__autoconf}
 %configure \
 	--enable-shared \
