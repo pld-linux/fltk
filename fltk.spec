@@ -4,8 +4,8 @@
 %bcond_without	xft	# without Xft support
 #
 Summary:	Fast Light Tool Kit
-Summary(pl):	FLTK - "lekki" X11 toolkit
-Summary(pt_BR):	Interface gráfica em C++ para X, OpenGL e Windows
+Summary(pl.UTF-8):   FLTK - "lekki" X11 toolkit
+Summary(pt_BR.UTF-8):   Interface grÃ¡fica em C++ para X, OpenGL e Windows
 Name:		fltk
 Version:	1.1.7
 Release:	1
@@ -41,24 +41,24 @@ Microsoft(r) Windows(r) NT 4.0, 95, or 98. It was originally developed
 by Mr. Bill Spitzak and is currently maintained by a small group of
 developers across the world with a central repository in the US.
 
-%description -l pl
+%description -l pl.UTF-8
 Fast Light Tool Kit ("FLTK", wymawiane "fultik"), jest rozprowadzanym
-na licencji LGPL narzêdziem do tworzenia graficznych interfejsów
-u¿ytkownika w C++ dla X (UNIX(r)), OpenGL(r), i Microsoft(r)
+na licencji LGPL narzÄ™dziem do tworzenia graficznych interfejsÃ³w
+uÅ¼ytkownika w C++ dla X (UNIX(r)), OpenGL(r), i Microsoft(r)
 Windows(r) NT 4.0, 95, oraz 98. Jego pierwotnym autorem jest pan Bill
-Spitzak; obecnie pakiet jest rozwijany przez niewielk± grupê
-deweloperów z ró¿nych stron ¶wiata (centralne repozytorium znajduje
-siê w USA).
+Spitzak; obecnie pakiet jest rozwijany przez niewielkÄ… grupÄ™
+deweloperÃ³w z rÃ³Å¼nych stron Å›wiata (centralne repozytorium znajduje
+siÄ™ w USA).
 
-%description -l pt_BR
-A Fast Light Tool Kit ("FLTK", pronuncia-se "fulltick") é uma
-ferramenta e interface gráfica feita em C++ para desenvolver
+%description -l pt_BR.UTF-8
+A Fast Light Tool Kit ("FLTK", pronuncia-se "fulltick") Ã© uma
+ferramenta e interface grÃ¡fica feita em C++ para desenvolver
 aplicativos para o X, OpenGL e Windows.
 
 %package devel
 Summary:	FLTK development files
-Summary(pl):	Narzêdzia programistyczne dla FLTK
-Summary(pt_BR):	Arquivos de inclusão para o FLTK
+Summary(pl.UTF-8):   NarzÄ™dzia programistyczne dla FLTK
+Summary(pt_BR.UTF-8):   Arquivos de inclusÃ£o para o FLTK
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libstdc++-devel
@@ -67,31 +67,31 @@ Obsoletes:	libfltk1.1-devel
 %description devel
 FLTK development files.
 
-%description devel -l pl
-Narzêdzia programistyczne dla FLTK.
+%description devel -l pl.UTF-8
+NarzÄ™dzia programistyczne dla FLTK.
 
-%description devel -l pt_BR
-Arquivos de inclusão para o FLTK.
+%description devel -l pt_BR.UTF-8
+Arquivos de inclusÃ£o para o FLTK.
 
 %package static
 Summary:	FLTK static library
-Summary(pl):	Biblioteka FLTK konsolidowana statycznie
-Summary(pt_BR):	Bibliotecas estáticas para o FLTK
+Summary(pl.UTF-8):   Biblioteka FLTK konsolidowana statycznie
+Summary(pt_BR.UTF-8):   Bibliotecas estÃ¡ticas para o FLTK
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 FLTK static library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Biblioteka FLTK konsolidowana statycznie.
 
-%description static -l pt_BR
-Bibliotecas estáticas para o FLTK.
+%description static -l pt_BR.UTF-8
+Bibliotecas estÃ¡ticas para o FLTK.
 
 %package gl
 Summary:	FLTK GL library
-Summary(pl):	Biblioteka FLTK GL
+Summary(pl.UTF-8):   Biblioteka FLTK GL
 Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	OpenGL
@@ -99,12 +99,12 @@ Requires:	OpenGL
 %description gl
 FLTK GL library.
 
-%description gl -l pl
+%description gl -l pl.UTF-8
 Biblioteka FLTK GL.
 
 %package gl-devel
 Summary:	Header files for FLTK GL library
-Summary(pl):	Pliki nag³ówkowe biblioteki FLTK GL
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe biblioteki FLTK GL
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-gl = %{version}-%{release}
@@ -112,12 +112,12 @@ Requires:	%{name}-gl = %{version}-%{release}
 %description gl-devel
 Header files for FLTK GL library.
 
-%description gl-devel -l pl
-Pliki nag³ówkowe biblioteki FLTK GL.
+%description gl-devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe biblioteki FLTK GL.
 
 %package gl-static
 Summary:	FLTK GL static library
-Summary(pl):	Statyczna biblioteka FLTK GL
+Summary(pl.UTF-8):   Statyczna biblioteka FLTK GL
 Group:		X11/Development/Libraries
 Requires:	%{name}-gl-devel = %{version}-%{release}
 Requires:	%{name}-static = %{version}-%{release}
@@ -125,7 +125,7 @@ Requires:	%{name}-static = %{version}-%{release}
 %description gl-static
 FLTK GL static library.
 
-%description gl-static -l pl
+%description gl-static -l pl.UTF-8
 Statyczna biblioteka FLTK GL.
 
 %prep
