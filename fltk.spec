@@ -4,8 +4,8 @@
 %bcond_without	xft	# without Xft support
 #
 Summary:	Fast Light Tool Kit
-Summary(pl.UTF-8):   FLTK - "lekki" X11 toolkit
-Summary(pt_BR.UTF-8):   Interface gráfica em C++ para X, OpenGL e Windows
+Summary(pl.UTF-8):	FLTK - "lekki" X11 toolkit
+Summary(pt_BR.UTF-8):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
 Version:	1.1.7
 Release:	1
@@ -57,8 +57,8 @@ aplicativos para o X, OpenGL e Windows.
 
 %package devel
 Summary:	FLTK development files
-Summary(pl.UTF-8):   Narzędzia programistyczne dla FLTK
-Summary(pt_BR.UTF-8):   Arquivos de inclusão para o FLTK
+Summary(pl.UTF-8):	Narzędzia programistyczne dla FLTK
+Summary(pt_BR.UTF-8):	Arquivos de inclusão para o FLTK
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libstdc++-devel
@@ -75,8 +75,8 @@ Arquivos de inclusão para o FLTK.
 
 %package static
 Summary:	FLTK static library
-Summary(pl.UTF-8):   Biblioteka FLTK konsolidowana statycznie
-Summary(pt_BR.UTF-8):   Bibliotecas estáticas para o FLTK
+Summary(pl.UTF-8):	Biblioteka FLTK konsolidowana statycznie
+Summary(pt_BR.UTF-8):	Bibliotecas estáticas para o FLTK
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -91,7 +91,7 @@ Bibliotecas estáticas para o FLTK.
 
 %package gl
 Summary:	FLTK GL library
-Summary(pl.UTF-8):   Biblioteka FLTK GL
+Summary(pl.UTF-8):	Biblioteka FLTK GL
 Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	OpenGL
@@ -104,7 +104,7 @@ Biblioteka FLTK GL.
 
 %package gl-devel
 Summary:	Header files for FLTK GL library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki FLTK GL
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki FLTK GL
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-gl = %{version}-%{release}
@@ -117,7 +117,7 @@ Pliki nagłówkowe biblioteki FLTK GL.
 
 %package gl-static
 Summary:	FLTK GL static library
-Summary(pl.UTF-8):   Statyczna biblioteka FLTK GL
+Summary(pl.UTF-8):	Statyczna biblioteka FLTK GL
 Group:		X11/Development/Libraries
 Requires:	%{name}-gl-devel = %{version}-%{release}
 Requires:	%{name}-static = %{version}-%{release}
