@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	gl	# without OpenGL libraries
+%bcond_without	opengl	# without OpenGL libraries
 %bcond_without	xft	# without Xft support
 #
 Summary:	Fast Light Tool Kit
@@ -18,7 +18,7 @@ Source1:	http://www.fltk.org/doc-1.1/%{name}.pdf
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-cxx.patch
 URL:		http://www.fltk.org/
-%{?with_gl:BuildRequires:	OpenGL-GLU-devel}
+%{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 BuildRequires:	autoconf
 BuildRequires:	libstdc++-devel
 BuildRequires:	rpmbuild(macros) >= 1.315
@@ -140,7 +140,7 @@ install %{SOURCE1} .
 %configure \
 	--enable-shared \
 	--with-x \
-	%{!?with_gl:--disable-gl} \
+	%{!?with_opengl:--disable-gl} \
 	%{?with_xft:--enable-xft}
 
 %{__make} depend
@@ -200,7 +200,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libfltk_forms.a
 %{_libdir}/libfltk_images.a
 
-%if %{with gl}
+%if %{with opengl}
 %files gl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libfltk_gl.so.*.*
