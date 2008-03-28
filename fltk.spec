@@ -7,16 +7,16 @@ Summary:	Fast Light Tool Kit
 Summary(pl.UTF-8):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR.UTF-8):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.1.7
+Version:	1.1.8
 Release:	1
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
-Source0:	http://ftp.easysw.com/pub/fltk/1.1.7/%{name}-%{version}-source.tar.bz2
-# Source0-md5:	2e29319119adc9d63b2f26b72cae0a88
+Source0:	http://ftp.easysw.com/pub/fltk/%{version}/%{name}-%{version}-source.tar.bz2
+# Source0-md5:	0f272d7299778e42fcbedf3c01741f4f
 Source1:	http://www.fltk.org/doc-1.1/%{name}.pdf
 # Source1-md5:	d3a073741c94d532ec7af9d96c138ea3
 Patch0:		%{name}-link.patch
-Patch1:		%{name}-cxx.patch
+Patch1:		%{name}-desktop.patch
 URL:		http://www.fltk.org/
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 BuildRequires:	autoconf
@@ -128,6 +128,18 @@ FLTK GL static library.
 %description gl-static -l pl.UTF-8
 Statyczna biblioteka FLTK GL.
 
+%package games
+Summary:	FLTK Games
+Summary:	Gry FLTK
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
+
+%description games
+FLTK games: Block Attack!, Checkers, or Sudoku on your computer.
+
+%description -l pl.UTF-8
+Gry FLTK: Atak Klocków!, Warcaby, Sudoku. 
+
 %prep
 %setup -q
 %patch0 -p1
@@ -143,29 +155,20 @@ install %{SOURCE1} .
 	%{!?with_opengl:--disable-gl} \
 	%{?with_xft:--enable-xft}
 
-%{__make} depend
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir}/FL,%{_libdir},%{_mandir}/man{1,3}}
-
-if [ "%{_lib}" != "lib" ] ; then
-	ln -sf $RPM_BUILD_ROOT%{_libdir} $RPM_BUILD_ROOT%{_prefix}/lib
-fi
 
 %{__make} install \
-	libdir=$RPM_BUILD_ROOT%{_libdir} \
-	includedir=$RPM_BUILD_ROOT%{_includedir} \
-	bindir=$RPM_BUILD_ROOT%{_bindir}
+	install-desktop \
+	DESTDIR=$RPM_BUILD_ROOT
 
-if [ "%{_lib}" != "lib" ] ; then
-	rm $RPM_BUILD_ROOT%{_prefix}/lib
-fi
-
-install documentation/fltk-config.man $RPM_BUILD_ROOT%{_mandir}/man1/fltk-config.1
-install documentation/fluid.man $RPM_BUILD_ROOT%{_mandir}/man1/fluid.1
-install documentation/fltk.man $RPM_BUILD_ROOT%{_mandir}/man3/fltk.3
+# less generic games' names
+for f in blocks checkers sudoku ; do
+mv -f $RPM_BUILD_ROOT%{_bindir}/{,fltk-}${f}
+mv -f $RPM_BUILD_ROOT%{_mandir}/man6/{,fltk-}${f}.6
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -186,6 +189,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc documentation/*.{html,gif,jpg} fltk.pdf
 %attr(755,root,root) %{_bindir}/fltk-config
 %attr(755,root,root) %{_bindir}/fluid
+%{_iconsdir}/*/*/*/fluid.png
+%{_desktopdir}/fluid.desktop
+%{_datadir}/mimelnk/application/x-fluid.desktop
 %attr(755,root,root) %{_libdir}/libfltk.so
 %attr(755,root,root) %{_libdir}/libfltk_forms.so
 %attr(755,root,root) %{_libdir}/libfltk_images.so
@@ -215,3 +221,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libfltk_gl.a
 %endif
+
+%files games
+%attr(755,root,root) %{_bindir}/%{name}-blocks
+%attr(755,root,root) %{_bindir}/%{name}-checkers
+%attr(755,root,root) %{_bindir}/%{name}-sudoku
+%{_iconsdir}/*/*/*/blocks.png
+%{_iconsdir}/*/*/*/checkers.png
+%{_iconsdir}/*/*/*/sudoku.png
+%{_desktopdir}/blocks.desktop
+%{_desktopdir}/checkers.desktop
+%{_desktopdir}/sudoku.desktop
+%{_mandir}/man6/%{name}-blocks.6*
+%{_mandir}/man6/%{name}-checkers.6*
+%{_mandir}/man6/%{name}-sudoku.6*
