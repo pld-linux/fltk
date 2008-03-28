@@ -1,0 +1,42 @@
+diff -Nur fltk-1.1.8/test/desktop/blocks.desktop n.fltk-1.1.8/test/desktop/blocks.desktop
+--- fltk-1.1.8/test/desktop/blocks.desktop	2008-03-16 13:20:30.000000000 +0100
++++ n.fltk-1.1.8/test/desktop/blocks.desktop	2008-03-28 20:48:58.000000000 +0100
+@@ -1,8 +1,8 @@
+ [Desktop Entry]
+ Name=Block Attack!
+ Comment=Block Attack! Game
+-TryExec=blocks
+-Exec=blocks
++TryExec=fltk-blocks
++Exec=fltk-blocks
+ Icon=blocks
+ Terminal=false
+ Type=Application
+diff -Nur fltk-1.1.8/test/desktop/checkers.desktop n.fltk-1.1.8/test/desktop/checkers.desktop
+--- fltk-1.1.8/test/desktop/checkers.desktop	2008-03-16 13:20:30.000000000 +0100
++++ n.fltk-1.1.8/test/desktop/checkers.desktop	2008-03-28 20:49:44.000000000 +0100
+@@ -1,8 +1,8 @@
+ [Desktop Entry]
+ Name=Checkers
+ Comment=Checkers Game
+-TryExec=checkers
+-Exec=checkers
++TryExec=fltk-checkers
++Exec=fltk-checkers
+ Icon=checkers
+ Terminal=false
+ Type=Application
+diff -Nur fltk-1.1.8/test/desktop/sudoku.desktop n.fltk-1.1.8/test/desktop/sudoku.desktop
+--- fltk-1.1.8/test/desktop/sudoku.desktop	2008-03-16 13:20:30.000000000 +0100
++++ n.fltk-1.1.8/test/desktop/sudoku.desktop	2008-03-28 20:50:14.000000000 +0100
+@@ -1,8 +1,8 @@
+ [Desktop Entry]
+ Name=Sudoku
+ Comment=Suduku Number Game
+-TryExec=sudoku
+-Exec=sudoku
++TryExec=fltk-sudoku
++Exec=fltk-sudoku
+ Icon=sudoku
+ Terminal=false
+ Type=Application
