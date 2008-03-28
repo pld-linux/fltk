@@ -47,3 +47,48 @@
  	    if test "x$libdir" != "x/usr/lib"; then
  		    DSOLINK="-Wl,-rpath,$libdir"
              fi
+-- fltk-1.1.8/makeinclude.in~	2008-03-28 22:31:50.280354265 +0100
++++ fltk-1.1.8/makeinclude.in	2008-03-28 22:31:55.920623903 +0100
+@@ -127,7 +127,7 @@
+ UNINSTALL_DESKTOP = @UNINSTALL_DESKTOP@
+ 
+ # Be quiet when building...
+-.SILENT:
++#.SILENT:
+ 
+ # Build commands and filename extensions...
+ .SUFFIXES:	.0 .1 .3 .6 .c .cxx .h .fl .man .o .z $(EXEEXT)
+--- fltk-1.1.8/src/Makefile~	2008-03-28 22:40:13.774424155 +0100
++++ fltk-1.1.8/src/Makefile	2008-03-28 22:46:26.665583815 +0100
+@@ -494,16 +494,16 @@
+ 	-$(INSTALL_DIR) $(DESTDIR)$(libdir)
+ 	-$(INSTALL_DIR) $(DESTDIR)$(bindir)
+ 	$(RM) $(DESTDIR)$(libdir)/$(LIBNAME)
++	$(RANLIB) $(LIBNAME)
++	$(RANLIB) $(FLLIBNAME)
++	$(RANLIB) $(IMGLIBNAME)
+ 	$(INSTALL_LIB) $(LIBNAME) $(DESTDIR)$(libdir)
+ 	$(INSTALL_LIB) $(FLLIBNAME) $(DESTDIR)$(libdir)
+ 	$(INSTALL_LIB) $(IMGLIBNAME) $(DESTDIR)$(libdir)
+-	$(RANLIB) $(DESTDIR)$(libdir)/$(LIBNAME)
+-	$(RANLIB) $(DESTDIR)$(libdir)/$(FLLIBNAME)
+ 	if test x$(GLLIBNAME) != x; then \
++		$(RANLIB) $(GLLIBNAME); \
+ 		$(INSTALL_LIB) $(GLLIBNAME) $(DESTDIR)$(libdir); \
+-		$(RANLIB) $(DESTDIR)$(libdir)/$(GLLIBNAME); \
+ 	fi
+-	$(RANLIB) $(DESTDIR)$(libdir)/$(IMGLIBNAME)
+ 	if test x$(DSONAME) = xlibfltk.so.1.1; then\
+ 		$(RM) $(DESTDIR)$(libdir)/libfltk.so*;\
+ 		$(INSTALL_LIB) libfltk.so.1.1 $(DESTDIR)$(libdir); \
+--- fltk-1.1.8/configure.in~	2008-03-28 23:00:54.660412250 +0100
++++ fltk-1.1.8/configure.in	2008-03-28 23:15:59.012846871 +0100
+@@ -225,7 +225,7 @@
+ 	    ;;
+     esac
+ 
+-    LINKSHARED="-L../src -lfltk_images$SHAREDSUFFIX -lfltk_forms$SHAREDSUFFIX -lfltk$SHAREDSUFFIX"
++    LINKSHARED="-l:../src/libfltk_images.so -l:../src/libfltk_forms.so -l:../src/libfltk.so"
+ else
+     DSOCOMMAND="echo"
+     DSOLINK=""
