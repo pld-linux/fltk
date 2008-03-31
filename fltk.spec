@@ -224,6 +224,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %files games
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/%{name}-blocks
 %attr(755,root,root) %{_bindir}/%{name}-checkers
 %attr(755,root,root) %{_bindir}/%{name}-sudoku
