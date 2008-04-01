@@ -190,16 +190,19 @@ rm -rf $RPM_BUILD_ROOT
 %doc documentation/*.{html,gif,jpg} fltk.pdf
 %attr(755,root,root) %{_bindir}/fltk-config
 %attr(755,root,root) %{_bindir}/fluid
-%{_iconsdir}/*/*/*/fluid.png
-%{_desktopdir}/fluid.desktop
-%{_datadir}/mimelnk/application/x-fluid.desktop
 %attr(755,root,root) %{_libdir}/libfltk.so
 %attr(755,root,root) %{_libdir}/libfltk_forms.so
 %attr(755,root,root) %{_libdir}/libfltk_images.so
 %{_includedir}/FL
 %exclude %{_includedir}/FL/Fl_Gl_Window.*
 %exclude %{_includedir}/FL/gl*
-%{_mandir}/man[13]/*
+%{_iconsdir}/*/*/*/fluid.png
+%{_desktopdir}/fluid.desktop
+# move to some KDE package?
+#%{_datadir}/mimelnk/application/x-fluid.desktop
+%{_mandir}/man1/fltk-config.1*
+%{_mandir}/man1/fluid.1*
+%{_mandir}/man3/fltk.3*
 
 %files static
 %defattr(644,root,root,755)
