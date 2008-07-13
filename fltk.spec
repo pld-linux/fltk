@@ -7,12 +7,12 @@ Summary:	Fast Light Tool Kit
 Summary(pl.UTF-8):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR.UTF-8):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.1.8
-Release:	2
+Version:	1.1.9
+Release:	1
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
 Source0:	http://ftp.easysw.com/pub/fltk/%{version}/%{name}-%{version}-source.tar.bz2
-# Source0-md5:	0f272d7299778e42fcbedf3c01741f4f
+# Source0-md5:	e146fd264e1001b1313acfd41ef75552
 Source1:	http://www.fltk.org/doc-1.1/%{name}.pdf
 # Source1-md5:	d3a073741c94d532ec7af9d96c138ea3
 Patch0:		%{name}-link.patch
@@ -26,6 +26,7 @@ BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
 BuildRequires:	xorg-util-makedepend
+BuildRequires:	xorg-proto-xineramaproto-devel	
 Obsoletes:	libfltk1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -150,7 +151,10 @@ install %{SOURCE1} .
 %build
 %{__autoconf}
 %configure \
+	--enable-largefile \
 	--enable-shared \
+	--enable-threads \
+	--enable-xinerama \
 	--with-x \
 	--with-optim="%{rpmcxxflags}" \
 	%{!?with_opengl:--disable-gl} \
