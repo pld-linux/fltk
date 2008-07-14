@@ -25,8 +25,8 @@ BuildRequires:	rpmbuild(macros) >= 1.315
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
+BuildRequires:	xorg-lib-libXinerama-devel	
 BuildRequires:	xorg-util-makedepend
-BuildRequires:	xorg-proto-xineramaproto-devel	
 Obsoletes:	libfltk1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
