@@ -175,6 +175,10 @@ mv -f $RPM_BUILD_ROOT%{_bindir}/{,fltk-}${f}
 mv -f $RPM_BUILD_ROOT%{_mandir}/man6/{,fltk-}${f}.6
 done
 
+# add link to documentation for fluid help; remove /usr/share/doc/fltk contents - it is installed during make install
+rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
+ln -sf %{_datadir}/doc/%{name}-devel-%{version} $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -192,6 +196,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %doc documentation/*.{html,gif,jpg} fltk.pdf
+%doc %{_datadir}/doc/%{name}
 %attr(755,root,root) %{_bindir}/fltk-config
 %attr(755,root,root) %{_bindir}/fluid
 %attr(755,root,root) %{_libdir}/libfltk.so
