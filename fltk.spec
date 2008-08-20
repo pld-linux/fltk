@@ -177,7 +177,7 @@ done
 
 # add link to documentation for fluid help; remove /usr/share/doc/fltk contents - it is installed during make install
 rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
-ln -sf %{_datadir}/doc/%{name}-devel-%{version} $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
+ln -sf %{name}-devel-%{version} $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
