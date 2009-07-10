@@ -8,15 +8,18 @@ Summary(pl.UTF-8):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR.UTF-8):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
 Version:	1.1.9
-Release:	2
+Release:	3
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
 Source0:	http://ftp.easysw.com/pub/fltk/%{version}/%{name}-%{version}-source.tar.bz2
 # Source0-md5:	e146fd264e1001b1313acfd41ef75552
 Source1:	http://www.fltk.org/doc-1.1/%{name}.pdf
 # Source1-md5:	d3a073741c94d532ec7af9d96c138ea3
-Patch0:		%{name}-link.patch
-Patch1:		%{name}-desktop.patch
+Patch0:		%{name}-desktop.patch
+Patch1:		%{name}-1.1.9-as-needed.patch
+Patch2:		%{name}-1.1.9-consts.patch
+Patch3:		%{name}-1.1.9-glibc2.10-scandir.patch
+Patch4:		%{name}-link.patch
 URL:		http://www.fltk.org/
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 BuildRequires:	autoconf
@@ -145,6 +148,9 @@ Gry FLTK: Atak Klocków!, Warcaby, Sudoku.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 install %{SOURCE1} .
 
