@@ -23,10 +23,10 @@ Patch4:		%{name}-link.patch
 URL:		http://www.fltk.org/
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 BuildRequires:	autoconf
+BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	rpmbuild(macros) >= 1.315
-BuildRequires:	xorg-lib-libX11-devel
-BuildRequires:	xorg-lib-libXext-devel
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
 BuildRequires:	xorg-lib-libXinerama-devel	
 BuildRequires:	xorg-util-makedepend
@@ -65,7 +65,11 @@ Summary(pl.UTF-8):	Narzędzia programistyczne dla FLTK
 Summary(pt_BR.UTF-8):	Arquivos de inclusão para o FLTK
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libjpeg-devel
+Requires:	libpng-devel
 Requires:	libstdc++-devel
+%{?with_xft:Requires:	xorg-lib-libXft-devel}
+Requires:	xorg-lib-libXinerama-devel	
 Obsoletes:	libfltk1.1-devel
 
 %description devel
