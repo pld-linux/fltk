@@ -1,0 +1,4 @@
+- run ldconfig moved to main package,
+- added %description,
+- Group in main chaged to X11/Libraries.
+  Note: still not compiles.
