@@ -15,16 +15,16 @@
  	-$(INSTALL_DIR) $(DESTDIR)$(libdir)
  	-$(INSTALL_DIR) $(DESTDIR)$(bindir)
  	$(RM) $(DESTDIR)$(libdir)/$(LIBBASENAME)
-+	$(RANLIB) $(LIBBASENAME)
-+	$(RANLIB) $(FLLIBBASENAME)
-+	$(RANLIB) $(IMGLIBBASENAME)
++	$(RANLIB) $(LIBNAME)
++	$(RANLIB) $(FLLIBNAME)
++	$(RANLIB) $(IMGLIBNAME)
  	$(INSTALL_LIB) $(LIBNAME) $(DESTDIR)$(libdir)
  	$(INSTALL_LIB) $(FLLIBNAME) $(DESTDIR)$(libdir)
  	$(INSTALL_LIB) $(IMGLIBNAME) $(DESTDIR)$(libdir)
 -	$(RANLIB) $(DESTDIR)$(libdir)/$(LIBBASENAME)
 -	$(RANLIB) $(DESTDIR)$(libdir)/$(FLLIBBASENAME)
  	if test x$(GLLIBNAME) != x; then \
-+		$(RANLIB) $(GLLIBBASENAME); \
++		$(RANLIB) $(GLLIBNAME); \
  		$(INSTALL_LIB) $(GLLIBNAME) $(DESTDIR)$(libdir); \
 -		$(RANLIB) $(DESTDIR)$(libdir)/$(GLLIBBASENAME); \
  	fi
