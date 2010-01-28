@@ -22,12 +22,13 @@ Patch3:		%{name}-link.patch
 URL:		http://www.fltk.org/
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 BuildRequires:	autoconf
+BuildRequires:	groff
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	rpmbuild(macros) >= 1.315
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
-BuildRequires:	xorg-lib-libXinerama-devel	
+BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-util-makedepend
 Obsoletes:	libfltk1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -68,7 +69,7 @@ Requires:	libjpeg-devel
 Requires:	libpng-devel
 Requires:	libstdc++-devel
 %{?with_xft:Requires:	xorg-lib-libXft-devel}
-Requires:	xorg-lib-libXinerama-devel	
+Requires:	xorg-lib-libXinerama-devel
 Obsoletes:	libfltk1.1-devel
 
 %description devel
@@ -145,7 +146,7 @@ Requires:	%{name} = %{version}-%{release}
 FLTK games: Block Attack!, Checkers, or Sudoku on your computer.
 
 %description -l pl.UTF-8
-Gry FLTK: Atak Klocków!, Warcaby, Sudoku. 
+Gry FLTK: Atak Klocków!, Warcaby, Sudoku.
 
 %prep
 %setup -q
