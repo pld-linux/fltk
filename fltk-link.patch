@@ -14,21 +14,21 @@
 @@ -494,16 +494,16 @@
  	-$(INSTALL_DIR) $(DESTDIR)$(libdir)
  	-$(INSTALL_DIR) $(DESTDIR)$(bindir)
- 	$(RM) $(DESTDIR)$(libdir)/$(LIBNAME)
-+	$(RANLIB) $(LIBNAME)
-+	$(RANLIB) $(FLLIBNAME)
-+	$(RANLIB) $(IMGLIBNAME)
+ 	$(RM) $(DESTDIR)$(libdir)/$(LIBBASENAME)
++	$(RANLIB) $(LIBBASENAME)
++	$(RANLIB) $(FLLIBBASENAME)
++	$(RANLIB) $(IMGLIBBASENAME)
  	$(INSTALL_LIB) $(LIBNAME) $(DESTDIR)$(libdir)
  	$(INSTALL_LIB) $(FLLIBNAME) $(DESTDIR)$(libdir)
  	$(INSTALL_LIB) $(IMGLIBNAME) $(DESTDIR)$(libdir)
--	$(RANLIB) $(DESTDIR)$(libdir)/$(LIBNAME)
--	$(RANLIB) $(DESTDIR)$(libdir)/$(FLLIBNAME)
+-	$(RANLIB) $(DESTDIR)$(libdir)/$(LIBBASENAME)
+-	$(RANLIB) $(DESTDIR)$(libdir)/$(FLLIBBASENAME)
  	if test x$(GLLIBNAME) != x; then \
-+		$(RANLIB) $(GLLIBNAME); \
++		$(RANLIB) $(GLLIBBASENAME); \
  		$(INSTALL_LIB) $(GLLIBNAME) $(DESTDIR)$(libdir); \
--		$(RANLIB) $(DESTDIR)$(libdir)/$(GLLIBNAME); \
+-		$(RANLIB) $(DESTDIR)$(libdir)/$(GLLIBBASENAME); \
  	fi
--	$(RANLIB) $(DESTDIR)$(libdir)/$(IMGLIBNAME)
+-	$(RANLIB) $(DESTDIR)$(libdir)/$(IMGLIBBASENAME)
  	if test x$(DSONAME) = xlibfltk.so.1.1; then\
  		$(RM) $(DESTDIR)$(libdir)/libfltk.so*;\
  		$(INSTALL_LIB) libfltk.so.1.1 $(DESTDIR)$(libdir); \
