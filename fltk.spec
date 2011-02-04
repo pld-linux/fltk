@@ -145,7 +145,7 @@ Requires:	%{name} = %{version}-%{release}
 %description games
 FLTK games: Block Attack!, Checkers, or Sudoku on your computer.
 
-%description -l pl.UTF-8
+%description games -l pl.UTF-8
 Gry FLTK: Atak Klocków!, Warcaby, Sudoku.
 
 %prep
