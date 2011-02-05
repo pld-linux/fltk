@@ -138,7 +138,7 @@ Statyczna biblioteka FLTK GL.
 
 %package games
 Summary:	FLTK Games
-Summary:	Gry FLTK
+Summary(pl.UTF-8):	Gry FLTK
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
