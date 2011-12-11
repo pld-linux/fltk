@@ -7,17 +7,17 @@ Summary:	Fast Light Tool Kit
 Summary(pl.UTF-8):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR.UTF-8):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.1.10
+Version:	1.3.0
 Release:	1
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
-Source0:	http://ftp.easysw.com/pub/fltk/%{version}/%{name}-%{version}-source.tar.bz2
-# Source0-md5:	a1765594bc427ff892e36089fe1fa672
-Source1:	http://www.fltk.org/doc-1.1/%{name}.pdf
-# Source1-md5:	31ed176facf7531ad46bb232fb24906b
+Source0:	http://ftp.easysw.com/pub/fltk/%{version}/%{name}-%{version}-source.tar.gz
+# Source0-md5:	44d5d7ba06afdd36ea17da6b4b703ca3
+Source1:	http://ftp.easysw.com/pub/fltk/%{version}/%{name}-%{version}-docs-html.tar.gz
+# Source1-md5:	ee79155cffc211e1d70a3ad8d3f170ef
 Patch0:		%{name}-desktop.patch
-Patch1:		%{name}-1.1.9-as-needed.patch
-Patch2:		%{name}-1.1.9-glibc2.10-scandir.patch
+Patch1:		%{name}-1.3.0-as-needed.patch
+#Patch2:		%{name}-1.1.9-glibc2.10-scandir.patch
 Patch3:		%{name}-link.patch
 URL:		http://www.fltk.org/
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
@@ -149,13 +149,13 @@ FLTK games: Block Attack!, Checkers, or Sudoku on your computer.
 Gry FLTK: Atak Klocków!, Warcaby, Sudoku.
 
 %prep
-%setup -q
+%setup -q -a1
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+#%patch2 -p1
 %patch3 -p1
 
-install %{SOURCE1} .
+#install %{SOURCE1} .
 
 %build
 %{__autoconf}
@@ -204,7 +204,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc documentation/*.{html,gif,jpg} fltk.pdf
+%doc fltk-%{version}/documentation/html/*.{html,jpg,png}
 %doc %{_datadir}/doc/%{name}
 %attr(755,root,root) %{_bindir}/fltk-config
 %attr(755,root,root) %{_bindir}/fluid
