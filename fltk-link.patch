@@ -9,15 +9,32 @@
  
  # Build commands and filename extensions...
  .SUFFIXES:	.0 .1 .3 .6 .c .cxx .h .fl .man .o .z $(EXEEXT)
---- fltk-1.1.8/src/Makefile~	2008-03-28 22:40:13.774424155 +0100
-+++ fltk-1.1.8/src/Makefile	2008-03-28 22:46:26.665583815 +0100
-@@ -494,16 +494,16 @@
- 	-$(INSTALL_DIR) $(DESTDIR)$(libdir)
- 	-$(INSTALL_DIR) $(DESTDIR)$(bindir)
- 	$(RM) $(DESTDIR)$(libdir)/$(LIBBASENAME)
+--- fltk-1.3.0/configure.in.orig	2011-12-11 18:23:15.000000000 +0100
++++ fltk-1.3.0/configure.in	2011-12-11 18:30:07.000000000 +0100
+@@ -335,7 +335,7 @@
+ 	    ;;
+     esac
+ 
+-    LINKSHARED="-L../src $FLTKCAIROOPTION -lfltk_images$SHAREDSUFFIX -lfltk_forms$SHAREDSUFFIX -lfltk$SHAREDSUFFIX"
++    LINKSHARED="-L../src $FLTKCAIROOPTION  -l:../src/libfltk_images.so -l:../src/libfltk_forms.so -l:../src/libfltk.so"
+ else
+     DSOCOMMAND="echo"
+     DSOLINK=""
+--- fltk-1.3.0/src/Makefile.orig	2011-12-11 18:23:16.000000000 +0100
++++ fltk-1.3.0/src/Makefile	2011-12-11 18:36:24.000000000 +0100
+@@ -557,7 +557,10 @@
+ install: $(LIBNAME) $(DSONAME) \
+ 	$(FLLIBNAME) $(FLDSONAME) \
+ 	$(GLLIBNAME) $(GLDSONAME) \
+-	$(IMGLIBNAME) $(IMGDSONAME) 
++	$(IMGLIBNAME) $(IMGDSONAME)
 +	$(RANLIB) $(LIBNAME)
 +	$(RANLIB) $(FLLIBNAME)
-+	$(RANLIB) $(IMGLIBNAME)
++	$(RANLIB) $(IMGLIBNAME) 
+ 	echo "Installing libraries in $(DESTDIR)$(libdir)..."
+ 	-$(INSTALL_DIR) $(DESTDIR)$(libdir)
+ 	-$(INSTALL_DIR) $(DESTDIR)$(bindir)
+@@ -565,13 +568,10 @@
  	$(INSTALL_LIB) $(LIBNAME) $(DESTDIR)$(libdir)
  	$(INSTALL_LIB) $(FLLIBNAME) $(DESTDIR)$(libdir)
  	$(INSTALL_LIB) $(IMGLIBNAME) $(DESTDIR)$(libdir)
@@ -29,17 +46,6 @@
 -		$(RANLIB) $(DESTDIR)$(libdir)/$(GLLIBBASENAME); \
  	fi
 -	$(RANLIB) $(DESTDIR)$(libdir)/$(IMGLIBBASENAME)
- 	if test x$(DSONAME) = xlibfltk.so.1.1; then\
+ 	if test x$(DSONAME) = xlibfltk.so.1.3; then\
  		$(RM) $(DESTDIR)$(libdir)/libfltk.so*;\
- 		$(INSTALL_LIB) libfltk.so.1.1 $(DESTDIR)$(libdir); \
---- fltk-1.1.8/configure.in~	2008-03-28 23:00:54.660412250 +0100
-+++ fltk-1.1.8/configure.in	2008-03-28 23:15:59.012846871 +0100
-@@ -225,7 +225,7 @@
- 	    ;;
-     esac
- 
--    LINKSHARED="-L../src -lfltk_images$SHAREDSUFFIX -lfltk_forms$SHAREDSUFFIX -lfltk$SHAREDSUFFIX"
-+    LINKSHARED="-l:../src/libfltk_images.so -l:../src/libfltk_forms.so -l:../src/libfltk.so"
- else
-     DSOCOMMAND="echo"
-     DSOLINK=""
+ 		$(INSTALL_LIB) libfltk.so.1.3 $(DESTDIR)$(libdir); \
