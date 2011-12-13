@@ -17,8 +17,7 @@ Source1:	http://ftp.easysw.com/pub/fltk/%{version}/%{name}-%{version}-docs-html.
 # Source1-md5:	ee79155cffc211e1d70a3ad8d3f170ef
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-1.3.0-as-needed.patch
-#Patch2:		%{name}-1.1.9-glibc2.10-scandir.patch
-Patch3:		%{name}-link.patch
+Patch2:		%{name}-link.patch
 URL:		http://www.fltk.org/
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 BuildRequires:	autoconf
@@ -152,10 +151,7 @@ Gry FLTK: Atak Klocków!, Warcaby, Sudoku.
 %setup -q -a1
 %patch0 -p1
 %patch1 -p1
-#%patch2 -p1
-%patch3 -p1
-
-#install %{SOURCE1} .
+%patch2 -p1
 
 %build
 %{__autoconf}
