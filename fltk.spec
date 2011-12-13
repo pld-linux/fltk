@@ -1,3 +1,4 @@
+# TODO: enable cairo support?
 #
 # Conditional build:
 %bcond_without	opengl	# without OpenGL libraries
@@ -20,12 +21,13 @@ Patch1:		%{name}-1.3.0-as-needed.patch
 Patch2:		%{name}-link.patch
 URL:		http://www.fltk.org/
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	groff
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	rpmbuild(macros) >= 1.315
+BuildRequires:	xorg-lib-libXext-devel
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-util-makedepend
