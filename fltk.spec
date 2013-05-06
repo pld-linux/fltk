@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR.UTF-8):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
 Version:	1.3.2
-Release:	1
+Release:	2
 License:	LGPL with amendments (see COPYING)
 Group:		X11/Libraries
 Source0:	http://fltk.org/pub/fltk/%{version}/%{name}-%{version}-source.tar.gz
