@@ -157,6 +157,12 @@ Gry FLTK: Atak Klocków!, Warcaby, Sudoku.
 %patch3 -p1
 
 %build
+# gold doesn't understand -l:path/to/library.so
+if [ -x /usr/bin/ld.bfd ]; then
+	install -d ld-dir
+	ln -sf /usr/bin/ld.bfd ld-dir/ld
+	export PATH=$(pwd)/ld-dir:$PATH
+fi
 %{__autoconf}
 %configure \
 	--enable-largefile \
