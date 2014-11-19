@@ -1,0 +1,49 @@
+--- fltk-1.3.3/configure.in.orig	2014-11-18 22:26:21.621181598 +0100
++++ fltk-1.3.3/configure.in	2014-11-19 16:58:39.211714220 +0100
+@@ -250,7 +250,7 @@
+             GLDSONAME="libfltk_gl.so.$FL_API_VERSION"
+             IMGDSONAME="libfltk_images.so.$FL_API_VERSION"
+             CAIRODSONAME="libfltk_cairo.so.$FL_API_VERSION"
+-            DSOCOMMAND="\$(CXX) \$(DSOFLAGS) -Wl,-soname,\$@ \$(LDLIBS) -shared -fPIC $DEBUGFLAG -o"
++            DSOCOMMAND="\$(CXX) \$(DSOFLAGS) \$(LDFLAGS) -Wl,-soname,\$@ -shared -fPIC $DEBUGFLAG -o"
+ 
+             # See if the compiler supports -fvisibility...
+             AC_CACHE_CHECK([if the compiler supports -fvisibility],
+--- fltk-1.3.3/src/Makefile.orig	2014-10-30 17:05:22.000000000 +0100
++++ fltk-1.3.3/src/Makefile	2014-11-18 22:26:21.624514932 +0100
+@@ -258,7 +258,7 @@
+ 
+ libfltk_s.a: $(OBJECTS)
+ 	echo $(DSOCOMMAND) libfltk_s.o ...
+-	$(DSOCOMMAND) libfltk_s.o $(OBJECTS) $(IMAGELIBS)
++	$(DSOCOMMAND) libfltk_s.o $(OBJECTS) $(IMAGELIBS) $(LDLIBS)
+ 	echo $(LIBCOMMAND) libfltk_s.a libfltk_s.o
+ 	$(RM) $@
+ 	$(LIBCOMMAND) libfltk_s.a libfltk_s.o
+@@ -294,7 +294,7 @@
+ 
+ libfltk_forms_s.a: $(FLOBJECTS)
+ 	echo $(DSOCOMMAND) libfltk_forms_s.o ...
+-	$(DSOCOMMAND) libfltk_forms_s.o $(FLOBJECTS)
++	$(DSOCOMMAND) libfltk_forms_s.o $(FLOBJECTS) $(LDLIBS)
+ 	echo $(LIBCOMMAND) libfltk_forms_s.a libfltk_forms_s.o
+ 	$(RM) $@
+ 	$(LIBCOMMAND) libfltk_forms_s.a libfltk_forms_s.o
+@@ -330,7 +330,7 @@
+ 
+ libfltk_gl_s.a: $(GLOBJECTS)
+ 	echo $(DSOCOMMAND) libfltk_gl_s.o ...
+-	$(DSOCOMMAND) libfltk_gl_s.o $(GLOBJECTS)
++	$(DSOCOMMAND) libfltk_gl_s.o $(GLOBJECTS) $(GLDLIBS)
+ 	echo $(LIBCOMMAND) libfltk_gl_s.a libfltk_gl_s.o
+ 	$(RM) $@
+ 	$(LIBCOMMAND) libfltk_gl_s.a libfltk_gl_s.o
+@@ -366,7 +366,7 @@
+ 
+ libfltk_images_s.a: $(IMGOBJECTS)
+ 	echo $(DSOCOMMAND) libfltk_images_s.o ...
+-	$(DSOCOMMAND) libfltk_images_s.o $(IMGOBJECTS)
++	$(DSOCOMMAND) libfltk_images_s.o $(IMGOBJECTS) $(LDLIBS)
+ 	echo $(LIBCOMMAND) libfltk_images_s.a libfltk_images_s.o
+ 	$(RM) $@
+ 	$(LIBCOMMAND) libfltk_images_s.a libfltk_images_s.o

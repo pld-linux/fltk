@@ -8,16 +8,17 @@ Summary:	Fast Light Tool Kit
 Summary(pl.UTF-8):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR.UTF-8):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.3.2
-Release:	3
-License:	LGPL with amendments (see COPYING)
+Version:	1.3.3
+Release:	1
+License:	LGPL v2 with amendments (see COPYING)
 Group:		X11/Libraries
 Source0:	http://fltk.org/pub/fltk/%{version}/%{name}-%{version}-source.tar.gz
-# Source0-md5:	9f7e707d4fb7a5a76f0f9b73ff70623d
+# Source0-md5:	9ccdb0d19dc104b87179bd9fd10822e3
 Patch0:		%{name}-desktop.patch
-Patch1:		%{name}-1.3.0-as-needed.patch
+Patch1:		%{name}-as-needed.patch
 Patch2:		%{name}-link.patch
 Patch3:		%{name}-libjpeg.patch
+Patch4:		%{name}-export.patch
 URL:		http://www.fltk.org/
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 BuildRequires:	autoconf >= 2.50
@@ -33,8 +34,6 @@ BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-util-makedepend
 Obsoletes:	libfltk1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_noautoreqdep	libGL.so.1 libGLU.so.1
 
 # don't propagate strip-flags to fltk-config.
 %define		filterout_ld	(-Wl,)?-[sS] (-Wl,)?--strip.*
@@ -155,6 +154,7 @@ Gry FLTK: Atak Klocków!, Warcaby, Sudoku.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 # gold doesn't understand -l:path/to/library.so
@@ -187,12 +187,15 @@ rm -rf $RPM_BUILD_ROOT
 
 # less generic games' names
 for f in blocks checkers sudoku ; do
-mv -f $RPM_BUILD_ROOT%{_bindir}/{,fltk-}${f}
-mv -f $RPM_BUILD_ROOT%{_mandir}/man6/{,fltk-}${f}.6
+%{__mv} $RPM_BUILD_ROOT%{_bindir}/{,fltk-}${f}
+%{__mv} $RPM_BUILD_ROOT%{_mandir}/man6/{,fltk-}${f}.6
 done
 
+# we package mans in groff format
+%{__rm} -r $RPM_BUILD_ROOT%{_mandir}/cat?
+
 # add link to documentation for fluid help; remove /usr/share/doc/fltk contents - it is installed during make install
-rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 ln -sf %{name}-devel-%{version} $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 
 %clean
@@ -219,9 +222,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libfltk_forms.so
 %attr(755,root,root) %{_libdir}/libfltk_images.so
 %{_includedir}/FL
-%exclude %{_includedir}/FL/Fl_Gl_Window.*
+%exclude %{_includedir}/FL/Fl_Gl_Window.H
 %exclude %{_includedir}/FL/gl*
-%{_iconsdir}/*/*/*/fluid.png
+%{_iconsdir}/hicolor/*/apps/fluid.png
 %{_desktopdir}/fluid.desktop
 # move to some KDE package?
 #%{_datadir}/mimelnk/application/x-fluid.desktop
@@ -243,7 +246,7 @@ rm -rf $RPM_BUILD_ROOT
 %files gl-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libfltk_gl.so
-%{_includedir}/FL/Fl_Gl_Window.*
+%{_includedir}/FL/Fl_Gl_Window.H
 %{_includedir}/FL/gl*
 
 %files gl-static

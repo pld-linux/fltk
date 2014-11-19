@@ -1,0 +1,11 @@
+--- fltk-1.3.3/FL/x.H.orig	2014-10-29 21:25:46.000000000 +0100
++++ fltk-1.3.3/FL/x.H	2014-11-19 20:30:07.434515072 +0100
+@@ -114,7 +114,7 @@
+ // With Xlib / X11 fonts, fl_xfont will return the current selected font.
+ // With XFT / X11 fonts, fl_xfont will attempt to return the bitmap "core" font most
+ // similar to (usually the same as) the current XFT font.
+-class Fl_XFont_On_Demand
++class FL_EXPORT Fl_XFont_On_Demand
+ {
+ public:
+   Fl_XFont_On_Demand(XFontStruct* p = NULL) : ptr(p) { }
