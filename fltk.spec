@@ -1,4 +1,3 @@
-# TODO: enable cairo support?
 #
 # Conditional build:
 %bcond_without	opengl	# without OpenGL libraries
@@ -21,14 +20,20 @@ Patch3:		%{name}-libjpeg.patch
 Patch4:		%{name}-export.patch
 URL:		http://www.fltk.org/
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
+%{?with_opengl:BuildRequires:	OpenGL-GLX-devel}
 BuildRequires:	autoconf >= 2.50
+BuildRequires:	cairo-devel
 BuildRequires:	doxygen
+%{?with_xft:BuildRequires:	fontconfig-devel}
 BuildRequires:	groff
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
+BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.315
+BuildRequires:	xorg-lib-libXcursor-devel
 BuildRequires:	xorg-lib-libXext-devel
+BuildRequires:	xorg-lib-libXfixes-devel
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-util-makedepend
@@ -96,6 +101,43 @@ Biblioteka FLTK konsolidowana statycznie.
 
 %description static -l pt_BR.UTF-8
 Bibliotecas estáticas para o FLTK.
+
+%package cairo
+Summary:	FLTK Cairo library
+Summary(pl.UTF-8):	Biblioteka FLTK Cairo
+Group:		X11/Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description cairo
+FLTK Cairo library.
+
+%description cairo -l pl.UTF-8
+Biblioteka FLTK Cairo.
+
+%package cairo-devel
+Summary:	Header files for FLTK Cairo library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki FLTK Cairo
+Group:		X11/Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-cairo = %{version}-%{release}
+
+%description cairo-devel
+Header files for FLTK Cairo library.
+
+%description cairo-devel -l pl.UTF-8
+Pliki nagłówkowe biblioteki FLTK Cairo.
+
+%package cairo-static
+Summary:	FLTK Cairo static library
+Summary(pl.UTF-8):	Statyczna biblioteka FLTK Cairo
+Group:		X11/Development/Libraries
+Requires:	%{name}-cairo-devel = %{version}-%{release}
+
+%description cairo-static
+FLTK Cairo static library.
+
+%description cairo-static -l pl.UTF-8
+Statyczna biblioteka FLTK Cairo.
 
 %package gl
 Summary:	FLTK GL library
@@ -165,6 +207,7 @@ if [ -x /usr/bin/ld.bfd ]; then
 fi
 %{__autoconf}
 %configure \
+	--enable-cairo \
 	--enable-largefile \
 	--enable-shared \
 	--enable-threads \
@@ -204,6 +247,12 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
+%post   cairo -p /sbin/ldconfig
+%postun cairo -p /sbin/ldconfig
+
+%post   gl -p /sbin/ldconfig
+%postun gl -p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 # note: COPYING contains amendments to LGPL, so don't remove!
@@ -222,6 +271,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libfltk_forms.so
 %attr(755,root,root) %{_libdir}/libfltk_images.so
 %{_includedir}/FL
+%exclude %{_includedir}/FL/Fl_Cairo*.H
 %exclude %{_includedir}/FL/Fl_Gl_Window.H
 %exclude %{_includedir}/FL/gl*
 %{_iconsdir}/hicolor/*/apps/fluid.png
@@ -237,6 +287,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libfltk.a
 %{_libdir}/libfltk_forms.a
 %{_libdir}/libfltk_images.a
+
+%files cairo
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libfltk_cairo.so.*.*
+
+%files cairo-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libfltk_cairo.so
+%{_includedir}/FL/Fl_Cairo*.H
+
+%files cairo-static
+%defattr(644,root,root,755)
+%{_libdir}/libfltk_cairo.a
 
 %if %{with opengl}
 %files gl
@@ -259,9 +322,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/%{name}-blocks
 %attr(755,root,root) %{_bindir}/%{name}-checkers
 %attr(755,root,root) %{_bindir}/%{name}-sudoku
-%{_iconsdir}/*/*/*/blocks.png
-%{_iconsdir}/*/*/*/checkers.png
-%{_iconsdir}/*/*/*/sudoku.png
+%{_iconsdir}/hicolor/*/apps/blocks.png
+%{_iconsdir}/hicolor/*/apps/checkers.png
+%{_iconsdir}/hicolor/*/apps/sudoku.png
 %{_desktopdir}/blocks.desktop
 %{_desktopdir}/checkers.desktop
 %{_desktopdir}/sudoku.desktop
