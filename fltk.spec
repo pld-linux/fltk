@@ -7,17 +7,19 @@ Summary:	Fast Light Tool Kit
 Summary(pl.UTF-8):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR.UTF-8):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.3.3
-Release:	2
+Version:	1.3.5
+Release:	1
 License:	LGPL v2 with amendments (see COPYING)
 Group:		X11/Libraries
-Source0:	http://fltk.org/pub/fltk/%{version}/%{name}-%{version}-source.tar.gz
-# Source0-md5:	9ccdb0d19dc104b87179bd9fd10822e3
+#Source0Download: https://www.fltk.org/software.php
+Source0:	https://www.fltk.org/pub/fltk/%{version}/%{name}-%{version}-source.tar.bz2
+# Source0-md5:	0de2b45a1896be2b4a8cafae89b84248
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-as-needed.patch
 Patch2:		%{name}-link.patch
-Patch3:		%{name}-libjpeg.patch
+Patch3:		%{name}-mime.patch
 Patch4:		%{name}-export.patch
+Patch5:		%{name}-docdir.patch
 URL:		http://www.fltk.org/
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 %{?with_opengl:BuildRequires:	OpenGL-GLX-devel}
@@ -178,6 +180,32 @@ FLTK GL static library.
 %description gl-static -l pl.UTF-8
 Statyczna biblioteka FLTK GL.
 
+%package apidocs
+Summary:	API documentation for FLTK library
+Summary(pl.UTF-8):	Dokumentacja API biblioteki FLTK
+Group:		Documentation
+
+%description apidocs
+API documentation for FLTK library.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API biblioteki FLTK.
+
+%package fluid
+Summary:	FLTK GUI Designer
+Summary(pl.UTF-8):	Narzędzie FLTK do projektowania GUI
+Group:		X11/Development/Tools
+Requires(post,postun):	desktop-file-utils
+Requires(post,postun):	shared-mime-info
+Requires:	%{name} = %{version}-%{release}
+Suggests:	%{name}-apidocs = %{version}-%{release}
+
+%description fluid
+FLTK GUI Designer.
+
+%description fluid -l pl.UTF-8
+Narzędzie FLTK do projektowania GUI.
+
 %package games
 Summary:	FLTK Games
 Summary(pl.UTF-8):	Gry FLTK
@@ -197,6 +225,7 @@ Gry FLTK: Atak Klocków!, Warcaby, Sudoku.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 # gold doesn't understand -l:path/to/library.so
@@ -218,14 +247,13 @@ fi
 	%{?with_xft:--enable-xft}
 
 %{__make}
-cd documentation
-%{__make} html
+
+%{__make} -C documentation html
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	install-desktop \
+%{__make} install install-desktop \
 	DESTDIR=$RPM_BUILD_ROOT
 
 # less generic games' names
@@ -237,9 +265,8 @@ done
 # we package mans in groff format
 %{__rm} -r $RPM_BUILD_ROOT%{_mandir}/cat?
 
-# add link to documentation for fluid help; remove /usr/share/doc/fltk contents - it is installed during make install
+# packaged as %doc
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
-ln -sf %{name}-devel-%{version} $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -253,20 +280,33 @@ rm -rf $RPM_BUILD_ROOT
 %post   gl -p /sbin/ldconfig
 %postun gl -p /sbin/ldconfig
 
+%post	fluid
+%update_icon_cache hicolor
+%update_desktop_database
+%update_mime_database
+
+%postun	fluid
+%update_icon_cache hicolor
+%update_desktop_database
+%update_mime_database
+
+%post	games
+%update_icon_cache hicolor
+
+%postun	games
+%update_icon_cache hicolor
+
 %files
 %defattr(644,root,root,755)
 # note: COPYING contains amendments to LGPL, so don't remove!
-%doc CHANGES COPYING CREDITS README
+%doc ANNOUNCEMENT CHANGES COPYING CREDITS README
 %attr(755,root,root) %{_libdir}/libfltk.so.*.*
 %attr(755,root,root) %{_libdir}/libfltk_forms.so.*.*
 %attr(755,root,root) %{_libdir}/libfltk_images.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%doc documentation/html/*.{html,jpg,png}
-%doc %{_datadir}/doc/%{name}
 %attr(755,root,root) %{_bindir}/fltk-config
-%attr(755,root,root) %{_bindir}/fluid
 %attr(755,root,root) %{_libdir}/libfltk.so
 %attr(755,root,root) %{_libdir}/libfltk_forms.so
 %attr(755,root,root) %{_libdir}/libfltk_images.so
@@ -274,12 +314,7 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_includedir}/FL/Fl_Cairo*.H
 %exclude %{_includedir}/FL/Fl_Gl_Window.H
 %exclude %{_includedir}/FL/gl*
-%{_iconsdir}/hicolor/*/apps/fluid.png
-%{_desktopdir}/fluid.desktop
-# move to some KDE package?
-#%{_datadir}/mimelnk/application/x-fluid.desktop
 %{_mandir}/man1/fltk-config.1*
-%{_mandir}/man1/fluid.1*
 %{_mandir}/man3/fltk.3*
 
 %files static
@@ -317,14 +352,26 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libfltk_gl.a
 %endif
 
+%files apidocs
+%defattr(644,root,root,755)
+%doc documentation/html/*.{html,jpg,png}
+
+%files fluid
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/fluid
+%{_iconsdir}/hicolor/*x*/apps/fluid.png
+%{_desktopdir}/fluid.desktop
+%{_datadir}/mime/packages/fluid.xml
+%{_mandir}/man1/fluid.1*
+
 %files games
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/%{name}-blocks
 %attr(755,root,root) %{_bindir}/%{name}-checkers
 %attr(755,root,root) %{_bindir}/%{name}-sudoku
-%{_iconsdir}/hicolor/*/apps/blocks.png
-%{_iconsdir}/hicolor/*/apps/checkers.png
-%{_iconsdir}/hicolor/*/apps/sudoku.png
+%{_iconsdir}/hicolor/*x*/apps/blocks.png
+%{_iconsdir}/hicolor/*x*/apps/checkers.png
+%{_iconsdir}/hicolor/*x*/apps/sudoku.png
 %{_desktopdir}/blocks.desktop
 %{_desktopdir}/checkers.desktop
 %{_desktopdir}/sudoku.desktop
