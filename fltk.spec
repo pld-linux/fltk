@@ -42,7 +42,7 @@ BuildRequires:	xorg-lib-libXfixes-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-util-makedepend
-Obsoletes:	libfltk1.1
+Obsoletes:	libfltk1.1 < 1.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # don't propagate strip-flags to fltk-config.
@@ -80,7 +80,7 @@ Requires:	libpng-devel
 Requires:	libstdc++-devel
 %{?with_xft:Requires:	xorg-lib-libXft-devel}
 Requires:	xorg-lib-libXinerama-devel
-Obsoletes:	libfltk1.1-devel
+Obsoletes:	libfltk1.1-devel < 1.2
 
 %description devel
 FLTK development files.
