@@ -1,19 +1,19 @@
 #
 # Conditional build:
-%bcond_without	opengl	# without OpenGL libraries
-%bcond_without	xft	# without Xft support
+%bcond_without	opengl	# OpenGL libraries
+%bcond_without	xft	# Xft support
 #
 Summary:	Fast Light Tool Kit
 Summary(pl.UTF-8):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR.UTF-8):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.3.5
+Version:	1.3.8
 Release:	1
 License:	LGPL v2 with amendments (see COPYING)
 Group:		X11/Libraries
 #Source0Download: https://www.fltk.org/software.php
 Source0:	https://www.fltk.org/pub/fltk/%{version}/%{name}-%{version}-source.tar.bz2
-# Source0-md5:	0de2b45a1896be2b4a8cafae89b84248
+# Source0-md5:	ed08b7985779213dc6190dc7b75d01a2
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-as-needed.patch
 Patch2:		%{name}-link.patch
@@ -23,6 +23,7 @@ Patch5:		%{name}-docdir.patch
 URL:		http://www.fltk.org/
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 %{?with_opengl:BuildRequires:	OpenGL-GLX-devel}
+BuildRequires:	alsa-lib-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	cairo-devel
 BuildRequires:	doxygen
@@ -33,11 +34,13 @@ BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.315
+BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXcursor-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXfixes-devel
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
 BuildRequires:	xorg-lib-libXinerama-devel
+BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-util-makedepend
 Obsoletes:	libfltk1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

@@ -20,21 +20,19 @@
  else
      DSOCOMMAND="echo"
      DSOLINK=""
---- fltk-1.3.5/src/Makefile.orig	2019-04-09 19:21:49.552045930 +0200
-+++ fltk-1.3.5/src/Makefile	2019-04-09 19:26:33.250509003 +0200
-@@ -556,7 +556,10 @@
- install: $(LIBNAME) $(DSONAME) \
+--- fltk-1.3.8/src/Makefile.orig	2022-02-05 15:58:57.974760005 +0100
++++ fltk-1.3.8/src/Makefile	2022-02-05 16:08:42.471593514 +0100
+@@ -569,6 +569,9 @@ install: $(LIBNAME) $(DSONAME) \
  	$(FLLIBNAME) $(FLDSONAME) \
  	$(GLLIBNAME) $(GLDSONAME) \
--	$(IMGLIBNAME) $(IMGDSONAME) 
-+	$(IMGLIBNAME) $(IMGDSONAME)
+ 	$(IMGLIBNAME) $(IMGDSONAME)
 +	$(RANLIB) $(LIBNAME)
 +	$(RANLIB) $(FLLIBNAME)
-+	$(RANLIB) $(IMGLIBNAME) 
++	$(RANLIB) $(IMGLIBNAME)
  	echo "Installing libraries in $(DESTDIR)$(libdir)..."
  	-$(INSTALL_DIR) $(DESTDIR)$(libdir)
  	-$(INSTALL_DIR) $(DESTDIR)$(bindir)
-@@ -564,13 +567,10 @@
+@@ -576,13 +579,10 @@ install: $(LIBNAME) $(DSONAME) \
  	$(INSTALL_LIB) $(LIBNAME) $(DESTDIR)$(libdir)
  	$(INSTALL_LIB) $(FLLIBNAME) $(DESTDIR)$(libdir)
  	$(INSTALL_LIB) $(IMGLIBNAME) $(DESTDIR)$(libdir)
