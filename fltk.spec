@@ -201,6 +201,7 @@ Group:		X11/Development/Tools
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	shared-mime-info
 Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-cairo = %{version}-%{release}
 Suggests:	%{name}-apidocs = %{version}-%{release}
 
 %description fluid
