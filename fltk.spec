@@ -7,18 +7,17 @@ Summary:	Fast Light Tool Kit
 Summary(pl.UTF-8):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR.UTF-8):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.3.8
-Release:	2
+Version:	1.3.11
+Release:	1
 License:	LGPL v2 with amendments (see COPYING)
 Group:		X11/Libraries
 #Source0Download: https://www.fltk.org/software.php
-Source0:	https://www.fltk.org/pub/fltk/%{version}/%{name}-%{version}-source.tar.bz2
-# Source0-md5:	ed08b7985779213dc6190dc7b75d01a2
+Source0:	https://github.com/fltk/fltk/releases/download/release-%{version}/%{name}-%{version}-source.tar.bz2
+# Source0-md5:	0e79fa6c4caad1d219b381330f2a0ea2
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-as-needed.patch
 Patch2:		%{name}-link.patch
 Patch3:		%{name}-mime.patch
-Patch4:		%{name}-export.patch
 Patch5:		%{name}-docdir.patch
 URL:		http://www.fltk.org/
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
@@ -228,7 +227,6 @@ Gry FLTK: Atak Klocków!, Warcaby, Sudoku.
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
-%patch -P4 -p1
 %patch -P5 -p1
 
 %build
