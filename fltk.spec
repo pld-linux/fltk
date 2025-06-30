@@ -1,19 +1,18 @@
 #
 # Conditional build:
 %bcond_without	opengl	# OpenGL libraries
-%bcond_without	xft	# Xft support
 #
 Summary:	Fast Light Tool Kit
 Summary(pl.UTF-8):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR.UTF-8):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.3.11
-Release:	2
+Version:	1.4.3
+Release:	1
 License:	LGPL v2 with amendments (see COPYING)
 Group:		X11/Libraries
 #Source0Download: https://www.fltk.org/software.php
 Source0:	https://github.com/fltk/fltk/releases/download/release-%{version}/%{name}-%{version}-source.tar.bz2
-# Source0-md5:	0e79fa6c4caad1d219b381330f2a0ea2
+# Source0-md5:	995dc0a61224261bc646b6639421a3cc
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-as-needed.patch
 Patch2:		%{name}-link.patch
@@ -29,22 +28,31 @@ BuildRequires:	OpenGL-devel
 BuildRequires:	alsa-lib-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	cairo-devel
+BuildRequires:	dbus-devel
 BuildRequires:	doxygen
-%{?with_xft:BuildRequires:	fontconfig-devel}
+BuildRequires:	fontconfig-devel
+BuildRequires:	freetype-devel >= 2
 BuildRequires:	groff
+BuildRequires:	libdecor-devel >= 0.2.0
 BuildRequires:	libjpeg-devel
-BuildRequires:	libpng-devel
+BuildRequires:	libpng-devel >= 1.6
 BuildRequires:	libstdc++-devel
+BuildRequires:	pango-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.315
+BuildRequires:	wayland-devel >= 1.18
+BuildRequires:	wayland-egl-devel
+BuildRequires:	wayland-protocols >= 1.15
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXcursor-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXfixes-devel
-%{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
+BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXrender-devel
+BuildRequires:	xorg-lib-libxkbcommon-devel
 BuildRequires:	xorg-util-makedepend
+Requires:	wayland >= 1.18
 Obsoletes:	libfltk1.1 < 1.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -77,9 +85,9 @@ Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	cairo-devel
 Requires:	libjpeg-devel
-Requires:	libpng-devel
+Requires:	libpng-devel >= 1.6
 Requires:	libstdc++-devel
-%{?with_xft:Requires:	xorg-lib-libXft-devel}
+Requires:	xorg-lib-libXft-devel
 Requires:	xorg-lib-libXinerama-devel
 Obsoletes:	libfltk1.1-devel < 1.2
 
@@ -223,6 +231,21 @@ FLTK games: Block Attack!, Checkers, or Sudoku on your computer.
 %description games -l pl.UTF-8
 Gry FLTK: Atak Klocków!, Warcaby, Sudoku.
 
+%package options
+Summary:	FLTK Options Editor
+Summary(pl.UTF-8):	Edytor opcji FLTK
+Group:		X11/Development/Tools
+Requires(post,postun):	desktop-file-utils
+Requires(post,postun):	shared-mime-info
+Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-cairo = %{version}-%{release}
+
+%description options
+Application to get and modify FLTK runtime options.
+
+%description options -l pl.UTF-8
+Aplikacja do odczytu i modyfikowania opcji FLTK.
+
 %prep
 %setup -q
 %patch -P0 -p1
@@ -242,14 +265,14 @@ fi
 %{__autoconf}
 %configure \
 	--enable-cairo \
+	%{!?with_opengl:--disable-gl} \
 	--enable-largefile \
 	--enable-shared \
 	--enable-threads \
-	--enable-xinerama \
+	--enable-use_std \
+	--enable-usecairo \
 	--with-x \
-	--with-optim="%{rpmcxxflags}" \
-	%{!?with_opengl:--disable-gl} \
-	%{?with_xft:--enable-xft}
+	--with-optim="%{rpmcxxflags}"
 
 %{__make}
 
@@ -301,13 +324,23 @@ rm -rf $RPM_BUILD_ROOT
 %postun	games
 %update_icon_cache hicolor
 
+%post	options
+%update_icon_cache hicolor
+%update_desktop_database
+%update_mime_database
+
+%postun	options
+%update_icon_cache hicolor
+%update_desktop_database
+%update_mime_database
+
 %files
 %defattr(644,root,root,755)
 # note: COPYING contains amendments to LGPL, so don't remove!
-%doc ANNOUNCEMENT CHANGES COPYING CREDITS README
-%{_libdir}/libfltk.so.1.3
-%{_libdir}/libfltk_forms.so.1.3
-%{_libdir}/libfltk_images.so.1.3
+%doc ANNOUNCEMENT CHANGES*.txt COPYING CREDITS.txt README.txt README.{Cairo,IDE,Wayland}.txt
+%{_libdir}/libfltk.so.1.4
+%{_libdir}/libfltk_forms.so.1.4
+%{_libdir}/libfltk_images.so.1.4
 
 %files devel
 %defattr(644,root,root,755)
@@ -330,7 +363,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files cairo
 %defattr(644,root,root,755)
-%{_libdir}/libfltk_cairo.so.1.3
+%{_libdir}/libfltk_cairo.so.1.4
 
 %files cairo-devel
 %defattr(644,root,root,755)
@@ -344,7 +377,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with opengl}
 %files gl
 %defattr(644,root,root,755)
-%{_libdir}/libfltk_gl.so.1.3
+%{_libdir}/libfltk_gl.so.1.4
 
 %files gl-devel
 %defattr(644,root,root,755)
@@ -371,15 +404,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files games
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/%{name}-blocks
-%attr(755,root,root) %{_bindir}/%{name}-checkers
-%attr(755,root,root) %{_bindir}/%{name}-sudoku
+%attr(755,root,root) %{_bindir}/fltk-blocks
+%attr(755,root,root) %{_bindir}/fltk-checkers
+%attr(755,root,root) %{_bindir}/fltk-sudoku
 %{_iconsdir}/hicolor/*x*/apps/blocks.png
 %{_iconsdir}/hicolor/*x*/apps/checkers.png
 %{_iconsdir}/hicolor/*x*/apps/sudoku.png
 %{_desktopdir}/blocks.desktop
 %{_desktopdir}/checkers.desktop
 %{_desktopdir}/sudoku.desktop
-%{_mandir}/man6/%{name}-blocks.6*
-%{_mandir}/man6/%{name}-checkers.6*
-%{_mandir}/man6/%{name}-sudoku.6*
+%{_mandir}/man6/fltk-blocks.6*
+%{_mandir}/man6/fltk-checkers.6*
+%{_mandir}/man6/fltk-sudoku.6*
+
+%files options
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/fltk-options
+%{_desktopdir}/fltk-options.desktop
+%{_iconsdir}/hicolor/*x*/apps/fltk-options.png
+%{_datadir}/mime/packages/fltk-options.xml
+%{_mandir}/man1/fltk-options.1*
