@@ -50,6 +50,8 @@ BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-lib-libxkbcommon-devel
 BuildRequires:	xorg-util-makedepend
 Requires:	wayland >= 1.18
+Provides:	fltk-cairo = %{version}-%{release}
+Obsoletes:	fltk-cairo < 1.4
 Obsoletes:	libfltk1.1 < 1.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -88,6 +90,8 @@ Requires:	libpng-devel >= 1.6
 Requires:	libstdc++-devel
 Requires:	xorg-lib-libXft-devel
 Requires:	xorg-lib-libXinerama-devel
+Provides:	fltk-cairo-devel = %{version}-%{release}
+Obsoletes:	fltk-cairo-devel < 1.4
 Obsoletes:	libfltk1.1-devel < 1.2
 
 %description devel
@@ -105,6 +109,8 @@ Summary(pl.UTF-8):	Biblioteka FLTK konsolidowana statycznie
 Summary(pt_BR.UTF-8):	Bibliotecas estáticas para o FLTK
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
+Provides:	fltk-cairo-static = %{version}-%{release}
+Obsoletes:	fltk-cairo-static < 1.4
 
 %description static
 FLTK static library.
@@ -114,43 +120,6 @@ Biblioteka FLTK konsolidowana statycznie.
 
 %description static -l pt_BR.UTF-8
 Bibliotecas estáticas para o FLTK.
-
-%package cairo
-Summary:	FLTK Cairo library
-Summary(pl.UTF-8):	Biblioteka FLTK Cairo
-Group:		X11/Libraries
-Requires:	%{name} = %{version}-%{release}
-
-%description cairo
-FLTK Cairo library.
-
-%description cairo -l pl.UTF-8
-Biblioteka FLTK Cairo.
-
-%package cairo-devel
-Summary:	Header files for FLTK Cairo library
-Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki FLTK Cairo
-Group:		X11/Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-cairo = %{version}-%{release}
-
-%description cairo-devel
-Header files for FLTK Cairo library.
-
-%description cairo-devel -l pl.UTF-8
-Pliki nagłówkowe biblioteki FLTK Cairo.
-
-%package cairo-static
-Summary:	FLTK Cairo static library
-Summary(pl.UTF-8):	Statyczna biblioteka FLTK Cairo
-Group:		X11/Development/Libraries
-Requires:	%{name}-cairo-devel = %{version}-%{release}
-
-%description cairo-static
-FLTK Cairo static library.
-
-%description cairo-static -l pl.UTF-8
-Statyczna biblioteka FLTK Cairo.
 
 %package gl
 Summary:	FLTK GL library
@@ -209,7 +178,6 @@ Group:		X11/Development/Tools
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	shared-mime-info
 Requires:	%{name} = %{version}-%{release}
-Requires:	%{name}-cairo = %{version}-%{release}
 Suggests:	%{name}-apidocs = %{version}-%{release}
 
 %description fluid
@@ -237,7 +205,6 @@ Group:		X11/Development/Tools
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	shared-mime-info
 Requires:	%{name} = %{version}-%{release}
-Requires:	%{name}-cairo = %{version}-%{release}
 
 %description options
 Application to get and modify FLTK runtime options.
@@ -300,9 +267,6 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%post   cairo -p /sbin/ldconfig
-%postun cairo -p /sbin/ldconfig
-
 %post   gl -p /sbin/ldconfig
 %postun gl -p /sbin/ldconfig
 
@@ -337,6 +301,7 @@ rm -rf $RPM_BUILD_ROOT
 # note: COPYING contains amendments to LGPL, so don't remove!
 %doc ANNOUNCEMENT CHANGES*.txt COPYING CREDITS.txt README.txt README.{Cairo,IDE,Wayland}.txt
 %attr(755,root,root) %{_libdir}/libfltk.so.1.4
+%attr(755,root,root) %{_libdir}/libfltk_cairo.so.1.4
 %attr(755,root,root) %{_libdir}/libfltk_forms.so.1.4
 %attr(755,root,root) %{_libdir}/libfltk_images.so.1.4
 
@@ -344,10 +309,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/fltk-config
 %attr(755,root,root) %{_libdir}/libfltk.so
+%attr(755,root,root) %{_libdir}/libfltk_cairo.so
 %attr(755,root,root) %{_libdir}/libfltk_forms.so
 %attr(755,root,root) %{_libdir}/libfltk_images.so
 %{_includedir}/FL
-%exclude %{_includedir}/FL/Fl_Cairo*.H
 %exclude %{_includedir}/FL/Fl_Gl_Window.H
 %exclude %{_includedir}/FL/gl*
 %{_mandir}/man1/fltk-config.1*
@@ -356,21 +321,9 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libfltk.a
+%{_libdir}/libfltk_cairo.a
 %{_libdir}/libfltk_forms.a
 %{_libdir}/libfltk_images.a
-
-%files cairo
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libfltk_cairo.so.1.4
-
-%files cairo-devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libfltk_cairo.so
-%{_includedir}/FL/Fl_Cairo*.H
-
-%files cairo-static
-%defattr(644,root,root,755)
-%{_libdir}/libfltk_cairo.a
 
 %if %{with opengl}
 %files gl
