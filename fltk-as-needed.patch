@@ -1,14 +1,14 @@
---- fltk-1.3.5/configure.ac.orig	2019-04-09 19:15:01.127591888 +0200
-+++ fltk-1.3.5/configure.ac	2019-04-09 19:18:55.769654056 +0200
-@@ -274,7 +274,7 @@
- 	    GLDSONAME="libfltk_gl.so.$FL_DSO_VERSION"
- 	    IMGDSONAME="libfltk_images.so.$FL_DSO_VERSION"
- 	    CAIRODSONAME="libfltk_cairo.so.$FL_DSO_VERSION"
--	    DSOCOMMAND="\$(CXX) \$(DSOFLAGS) -Wl,-soname,\$@ \$(LDLIBS) -shared -fPIC $DEBUGFLAG -o"
-+	    DSOCOMMAND="\$(CXX) \$(DSOFLAGS) \$(LDFLAGS) -Wl,-soname,\$@ -shared -fPIC $DEBUGFLAG -o"
- 
- 	    # See if the compiler supports -fvisibility...
- 	    AC_CACHE_CHECK([if the compiler supports -fvisibility],
+--- fltk-1.4.3/configure.ac.orig	2025-04-29 13:40:25.000000000 +0200
++++ fltk-1.4.3/configure.ac	2025-06-30 18:59:12.030909262 +0200
+@@ -328,7 +328,7 @@ AS_IF([test "x$enable_shared" = xyes], [
+         GLDSONAME="libfltk_gl.so.$FL_DSO_VERSION"
+         IMGDSONAME="libfltk_images.so.$FL_DSO_VERSION"
+         CAIRODSONAME="libfltk_cairo.so.$FL_DSO_VERSION"
+-        DSOCOMMAND="\$(CXX) \$(DSOFLAGS) -Wl,-soname,\$@ \$(LDLIBS) -shared -fPIC $DEBUGFLAG -o"
++        DSOCOMMAND="\$(CXX) \$(DSOFLAGS) \$(LDFLAGS) -Wl,-soname,\$@ -shared -fPIC $DEBUGFLAG -o"
+         AS_IF([test "x$libdir" != "x/usr/lib"], [
+             DSOLINK="-R$libdir"
+         ])
 --- fltk-1.3.3/src/Makefile.orig	2014-10-30 17:05:22.000000000 +0100
 +++ fltk-1.3.3/src/Makefile	2014-11-18 22:26:21.624514932 +0100
 @@ -258,7 +258,7 @@
