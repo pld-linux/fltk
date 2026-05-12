@@ -305,16 +305,16 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 # note: COPYING contains amendments to LGPL, so don't remove!
 %doc ANNOUNCEMENT CHANGES COPYING CREDITS README
-%attr(755,root,root) %{_libdir}/libfltk.so.*.*
-%attr(755,root,root) %{_libdir}/libfltk_forms.so.*.*
-%attr(755,root,root) %{_libdir}/libfltk_images.so.*.*
+%{_libdir}/libfltk.so.1.3
+%{_libdir}/libfltk_forms.so.1.3
+%{_libdir}/libfltk_images.so.1.3
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/fltk-config
-%attr(755,root,root) %{_libdir}/libfltk.so
-%attr(755,root,root) %{_libdir}/libfltk_forms.so
-%attr(755,root,root) %{_libdir}/libfltk_images.so
+%{_libdir}/libfltk.so
+%{_libdir}/libfltk_forms.so
+%{_libdir}/libfltk_images.so
 %{_includedir}/FL
 %exclude %{_includedir}/FL/Fl_Cairo*.H
 %exclude %{_includedir}/FL/Fl_Gl_Window.H
@@ -330,11 +330,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files cairo
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libfltk_cairo.so.*.*
+%{_libdir}/libfltk_cairo.so.1.3
 
 %files cairo-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libfltk_cairo.so
+%{_libdir}/libfltk_cairo.so
 %{_includedir}/FL/Fl_Cairo*.H
 
 %files cairo-static
@@ -344,11 +344,11 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with opengl}
 %files gl
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libfltk_gl.so.*.*
+%{_libdir}/libfltk_gl.so.1.3
 
 %files gl-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libfltk_gl.so
+%{_libdir}/libfltk_gl.so
 %{_includedir}/FL/Fl_Gl_Window.H
 %{_includedir}/FL/gl*
 
