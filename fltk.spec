@@ -18,10 +18,14 @@ Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-as-needed.patch
 Patch2:		%{name}-link.patch
 Patch3:		%{name}-mime.patch
-Patch5:		%{name}-docdir.patch
-URL:		http://www.fltk.org/
-%{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
-%{?with_opengl:BuildRequires:	OpenGL-GLX-devel}
+Patch4:		%{name}-docdir.patch
+Patch5:		%{name}-config.patch
+URL:		https://www.fltk.org/
+%if %{with opengl}
+BuildRequires:	OpenGL-GLU-devel
+BuildRequires:	OpenGL-GLX-devel
+BuildRequires:	OpenGL-devel
+%endif
 BuildRequires:	alsa-lib-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	cairo-devel
@@ -43,9 +47,6 @@ BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-util-makedepend
 Obsoletes:	libfltk1.1 < 1.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-# don't propagate strip-flags to fltk-config.
-%define		filterout_ld	(-Wl,)?-[sS] (-Wl,)?--strip.*
 
 %description
 The Fast Light Tool Kit ("FLTK", pronounced "fulltick") is a LGPL'd
@@ -74,6 +75,7 @@ Summary(pl.UTF-8):	Narzędzia programistyczne dla FLTK
 Summary(pt_BR.UTF-8):	Arquivos de inclusão para o FLTK
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	cairo-devel
 Requires:	libjpeg-devel
 Requires:	libpng-devel
 Requires:	libstdc++-devel
@@ -227,6 +229,7 @@ Gry FLTK: Atak Klocków!, Warcaby, Sudoku.
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
 %patch -P5 -p1
 
 %build
