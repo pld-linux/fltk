@@ -6,13 +6,13 @@ Summary:	Fast Light Tool Kit
 Summary(pl.UTF-8):	FLTK - "lekki" X11 toolkit
 Summary(pt_BR.UTF-8):	Interface gráfica em C++ para X, OpenGL e Windows
 Name:		fltk
-Version:	1.4.3
+Version:	1.4.5
 Release:	1
 License:	LGPL v2 with amendments (see COPYING)
 Group:		X11/Libraries
 #Source0Download: https://www.fltk.org/software.php
 Source0:	https://github.com/fltk/fltk/releases/download/release-%{version}/%{name}-%{version}-source.tar.bz2
-# Source0-md5:	995dc0a61224261bc646b6639421a3cc
+# Source0-md5:	bdb6cbc3cecfb5576e3c17e48d593acc
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-as-needed.patch
 Patch2:		%{name}-link.patch
